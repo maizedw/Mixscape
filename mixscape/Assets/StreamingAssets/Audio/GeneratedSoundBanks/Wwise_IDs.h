@@ -14,6 +14,8 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID JUMP = 3833651337U;
+        static const AkUniqueID LAND = 674522502U;
     } // namespace EVENTS
 
     namespace GAME_PARAMETERS

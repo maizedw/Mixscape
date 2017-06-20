@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}'
-    m_lastTimePsrt1: -1336698248
-    m_lastTimePart2: -1999325301
+    m_lastTimePsrt1: 149277465
+    m_lastTimePart2: -1999325275
     List:
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
@@ -28,6 +28,26 @@ MonoBehaviour:
         ObjectType: 3
       ID: -1909339098
       Guid: 0d97b73199417e42930e7b2469461649
+      maxAttenuation: 0
+    - Name: Jump
+      Path: Default Work Unit\Jump
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Jump
+        ObjectType: 3
+      ID: -461315959
+      Guid: c4b67e406c6619419576d76aa7663781
+      maxAttenuation: 0
+    - Name: Land
+      Path: Default Work Unit\Land
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Land
+        ObjectType: 3
+      ID: 674522502
+      Guid: a1ce79238a65ac479f475508ed01b752
       maxAttenuation: 0
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -54,8 +74,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E0A930E7-5E15-4E01-B06D-C6C7DACCD5BF}'
-    m_lastTimePsrt1: 1408295206
-    m_lastTimePart2: -1999325295
+    m_lastTimePsrt1: 149232344
+    m_lastTimePart2: -1999325275
     List:
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
@@ -68,8 +88,8 @@ MonoBehaviour:
       Guid: 6017f35f4be5624aaec217e66430d0fc
   ExpandedItems:
   - /mixscape_WwiseProject
-  - /mixscape_WwiseProject/SoundBanks
-  - /mixscape_WwiseProject/SoundBanks/Default Work Unit
+  - /mixscape_WwiseProject/Events
+  - /mixscape_WwiseProject/Events/Default Work Unit
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1
