@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" SchemaVersion="75">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Footsteps" ID="{31B7970D-4199-427E-930E-7B2469461649}">
+					<ChildrenList>
+						<Action Name="Play" ID="{2CA81079-3D72-487F-A075-1F481CACF1E1}" ShortID="200386896" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{8D223E83-B3DE-4319-A7F1-545BC9ED7615}" Global="false">
+									<ObjectRef Name="PERC 01" ID="{5ED4C51E-6C71-4C3A-84F7-2764FC1B568A}" WorkUnitID="{D9329DB3-E4D7-45AA-BD40-6EB28C6C4D39}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>
