@@ -18,6 +18,21 @@ namespace AK
         static const AkUniqueID LAND = 674522502U;
     } // namespace EVENTS
 
+    namespace SWITCHES
+    {
+        namespace TERRAINSWITCHGROUP
+        {
+            static const AkUniqueID GROUP = 3643368013U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID DIRT = 2195636714U;
+                static const AkUniqueID GRASS = 4248645337U;
+            } // namespace SWITCH
+        } // namespace TERRAINSWITCHGROUP
+
+    } // namespace SWITCHES
+
     namespace GAME_PARAMETERS
     {
         static const AkUniqueID SS_AIR_FEAR = 1351367891U;
