@@ -33,8 +33,12 @@ public class LevelManager : MonoBehaviour
             CurrentSkybox = 0;
         }
         RenderSettings.skybox = SkyboxMaterials[CurrentSkybox];
+
 #if UNITY_EDITOR
-        UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
+        if (!Application.isPlaying)
+        {
+            UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
+        }
 #endif
     }
 }
