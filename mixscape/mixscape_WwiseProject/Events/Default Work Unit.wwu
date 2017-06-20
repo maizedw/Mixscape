@@ -5,10 +5,32 @@
 			<ChildrenList>
 				<Event Name="Footsteps" ID="{31B7970D-4199-427E-930E-7B2469461649}">
 					<ChildrenList>
-						<Action Name="Play" ID="{2CA81079-3D72-487F-A075-1F481CACF1E1}" ShortID="200386896" Type="Play" Scope="One" Global="false">
+						<Action Name="Play" ID="{D26FBCB8-07FD-405A-94B2-4EBECCE5B630}" ShortID="114524249" Type="Play" Scope="One" Global="false">
 							<ElementList>
-								<Element ID="{8D223E83-B3DE-4319-A7F1-545BC9ED7615}" Global="false">
-									<ObjectRef Name="PERC 01" ID="{5ED4C51E-6C71-4C3A-84F7-2764FC1B568A}" WorkUnitID="{D9329DB3-E4D7-45AA-BD40-6EB28C6C4D39}"/>
+								<Element ID="{0CFC6736-0555-4FA1-A31D-F6B1C0020932}" Global="false">
+									<ObjectRef Name="Footsteps" ID="{793E352A-1AF3-4307-99A5-D4108599B250}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Jump" ID="{407EB6C4-666C-4119-9576-D76AA7663781}">
+					<ChildrenList>
+						<Action Name="Play" ID="{17A56BDB-51A0-4A40-B2CD-5DF79FEC8B02}" ShortID="844785903" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{026B04D8-AE42-45B5-8C17-B920F8E296F4}" Global="false">
+									<ObjectRef Name="Jump" ID="{DBAA3D4F-803A-4498-948B-9D6A32C59B23}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Land" ID="{2379CEA1-658A-47AC-9F47-5508ED01B752}">
+					<ChildrenList>
+						<Action Name="Play" ID="{C60D8822-D996-4F9B-8E34-4DB9994D96E0}" ShortID="505863155" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{95B68FF9-4676-4AAD-AD06-7D3308A56F19}" Global="false">
+									<ObjectRef Name="Land" ID="{E58D467E-6B6F-4829-96C1-BD09C1031D4B}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
 								</Element>
 							</ElementList>
 						</Action>

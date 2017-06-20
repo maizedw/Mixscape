@@ -22,7 +22,35 @@
 			<Path>Footsteps.bnk</Path>
 			<IncludedEvents>
 				<Event Id="2385628198" Name="Footsteps" ObjectPath="\Events\Default Work Unit\Footsteps"/>
+				<Event Id="3833651337" Name="Jump" ObjectPath="\Events\Default Work Unit\Jump"/>
+				<Event Id="674522502" Name="Land" ObjectPath="\Events\Default Work Unit\Land"/>
 			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="105681997" Language="SFX">
+					<ShortName>Footstep03.wav</ShortName>
+					<Path>SFX\Footstep03_9E69E797.wem</Path>
+				</File>
+				<File Id="488214762" Language="SFX">
+					<ShortName>Footstep01.wav</ShortName>
+					<Path>SFX\Footstep01_9E69E797.wem</Path>
+				</File>
+				<File Id="523273653" Language="SFX">
+					<ShortName>Footstep04.wav</ShortName>
+					<Path>SFX\Footstep04_9E69E797.wem</Path>
+				</File>
+				<File Id="611297062" Language="SFX">
+					<ShortName>Footstep02.wav</ShortName>
+					<Path>SFX\Footstep02_9E69E797.wem</Path>
+				</File>
+				<File Id="626485153" Language="SFX">
+					<ShortName>Land.wav</ShortName>
+					<Path>SFX\Land_9E69E797.wem</Path>
+				</File>
+				<File Id="921952352" Language="SFX">
+					<ShortName>Jump.wav</ShortName>
+					<Path>SFX\Jump_9E69E797.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
 		</SoundBank>
 	</SoundBanks>
 </SoundBanksInfo>
