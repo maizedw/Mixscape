@@ -35,10 +35,14 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 14300000}
-  - component: {fileID: 11400014}
+  - component: {fileID: 114243765293275114}
   - component: {fileID: 11400010}
   - component: {fileID: 11400004}
-  - component: {fileID: 114837755265411052}
+  - component: {fileID: 54255527806142390}
+  - component: {fileID: 114959221679092708}
+  - component: {fileID: 114465216847026638}
+  - component: {fileID: 114247241507297656}
+  - component: {fileID: 114720898784520316}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -259,28 +263,6 @@ MonoBehaviour:
   minimumY: -85
   maximumY: 85
   framesOfSmoothing: 5
---- !u!114 &11400014
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9ee6ff55b4ff41769a43e63bbd8c2ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 6
-  runSpeed: 10
-  enableRunning: 0
-  jumpSpeed: 4
-  gravity: 10
-  slideWhenOverSlopeLimit: 0
-  slideOnTaggedObjects: 0
-  slideSpeed: 5
-  airControl: 1
-  antiBumpFactor: 0.75
-  antiBunnyHopFactor: 1
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
@@ -316,6 +298,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100002}
   m_IsPrefabParent: 1
+--- !u!54 &54255527806142390
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114007844432685406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listenerId: 0
---- !u!114 &114837755265411052
+--- !u!114 &114243765293275114
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -336,7 +333,106 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4aa278e0835ac42a3f7b9de2e5468c, type: 3}
+  m_Script: {fileID: 11500000, guid: f54f80a5a87874f4cbb8023b00613566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FootstepInterval: 0.25
+  walkSpeed: 4
+  runSpeed: 10
+  enableRunning: 1
+  jumpSpeed: 4
+  gravity: 10
+  slideWhenOverSlopeLimit: 0
+  slideOnTaggedObjects: 0
+  slideSpeed: 5
+  airControl: 1
+  antiBumpFactor: 0.75
+  antiBunnyHopFactor: 1
+  FootstepDistance: 2
+  FootstepEvent: {fileID: 114465216847026638}
+  JumpEvent: {fileID: 114247241507297656}
+  MinAirborneTimeToLand: 0.4
+  LandEvent: {fileID: 114720898784520316}
+--- !u!114 &114247241507297656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa37feb1f548bb447b6175a49cfff168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  valueGuid: c4b67e406c6619419576d76aa7663781
+  eventID: -461315959
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114465216847026638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa37feb1f548bb447b6175a49cfff168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  valueGuid: 0d97b73199417e42930e7b2469461649
+  eventID: -1909339098
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114720898784520316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa37feb1f548bb447b6175a49cfff168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  valueGuid: a1ce79238a65ac479f475508ed01b752
+  eventID: 674522502
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114959221679092708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e7cc3d3dfcc614b8f7af29f04f71be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_positionOffsetData:
+    positionOffset: {x: 0, y: 0, z: 0}
+    KeepMe: 0
+  isEnvironmentAware: 1
+  listenerMask: 1
+  isStaticObject: 0
+  m_posOffsetData: {fileID: 0}
