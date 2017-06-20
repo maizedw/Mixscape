@@ -8,7 +8,7 @@
 						<Action Name="Play" ID="{D26FBCB8-07FD-405A-94B2-4EBECCE5B630}" ShortID="114524249" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{0CFC6736-0555-4FA1-A31D-F6B1C0020932}" Global="false">
-									<ObjectRef Name="Footsteps" ID="{793E352A-1AF3-4307-99A5-D4108599B250}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+									<ObjectRef Name="FootstepsSwitch" ID="{1A602F71-D7A2-41FA-A206-B735E6C9DBD0}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
 								</Element>
 							</ElementList>
 						</Action>

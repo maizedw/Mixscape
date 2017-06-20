@@ -3,26 +3,26 @@
 	<Platform GUID="{761EF049-5911-47F1-AE66-668AC120A43D}">
 		<Banks>
 			<Language ID="0">
-				<File Name="Footsteps" Hash="57445173" Timestamp="131424119188314706"/>
-				<File Name="Init" Hash="593700967" Timestamp="131424118780951691"/>
+				<File Name="Footsteps" Hash="621561312" Timestamp="131424197664499901"/>
+				<File Name="Init" Hash="1921649359" Timestamp="131424197664590397"/>
 			</Language>
 		</Banks>
 		<XMLInfo>
 			<Language ID="-1">
-				<File Name="" Hash="1137061679" Timestamp="131424119188414982"/>
+				<File Name="" Hash="1137061679" Timestamp="131424197664610195"/>
 			</Language>
 		</XMLInfo>
 	</Platform>
 	<Platform GUID="{6FABBD28-D7CC-48CC-86F3-AD5FBEF80E82}">
 		<Banks>
 			<Language ID="0">
-				<File Name="Footsteps" Hash="57445173" Timestamp="131424119187773497"/>
-				<File Name="Init" Hash="2249455277" Timestamp="131424118780134329"/>
+				<File Name="Footsteps" Hash="621561312" Timestamp="131424197664003567"/>
+				<File Name="Init" Hash="670361525" Timestamp="131424197664148956"/>
 			</Language>
 		</Banks>
 		<XMLInfo>
 			<Language ID="-1">
-				<File Name="" Hash="3430012973" Timestamp="131424119187888869"/>
+				<File Name="" Hash="3430012973" Timestamp="131424197664179033"/>
 			</Language>
 		</XMLInfo>
 	</Platform>
