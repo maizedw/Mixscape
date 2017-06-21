@@ -51,7 +51,10 @@ public class TerrainAudioSwitcher : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Box(new Rect(100, 100, 200, 25), "index: " + _currTextureIndex.ToString() + ", name: " + terrainData.splatPrototypes[_currTextureIndex].texture.name);
+        if(terrainData.splatPrototypes.Length > 0)
+        {
+            GUI.Box(new Rect(100, 100, 200, 25), "index: " + _currTextureIndex.ToString() + ", name: " + terrainData.splatPrototypes[_currTextureIndex].texture.name);
+        }
     }
 
     private float[] GetTextureMix(Vector3 WorldPos)
