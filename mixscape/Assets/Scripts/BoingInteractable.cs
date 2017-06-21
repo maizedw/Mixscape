@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(AkEvent))]
 public class BoingInteractable : InteractableObject
 {
     public float BoingTime = 0.8f;
