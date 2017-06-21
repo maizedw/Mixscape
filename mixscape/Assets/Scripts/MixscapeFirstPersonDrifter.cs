@@ -1,4 +1,6 @@
+using UMA;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent (typeof (CharacterController))]
 public class MixscapeFirstPersonDrifter: MonoBehaviour
@@ -65,6 +67,12 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         rayDistance = controller.height * .5f + controller.radius;
         slideLimit = controller.slopeLimit - .1f;
         jumpTimer = antiBunnyHopFactor;
+
+        UMADynamicAvatar avatar = GetComponentInChildren<UMADynamicAvatar>();
+        if(avatar != null)
+        {
+            avatar.Load(avatar.umaRecipe, avatar.umaAdditionalRecipes);
+        }
     }
 
     private void Update()
@@ -111,6 +119,18 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        SkinnedMeshRenderer[] meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach(SkinnedMeshRenderer meshRenderer in meshRenderers)
+        {
+            if(meshRenderer.shadowCastingMode != ShadowCastingMode.ShadowsOnly)
+                meshRenderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
+            if(meshRenderer.receiveShadows)
+                meshRenderer.receiveShadows = false;
         }
     }
 
