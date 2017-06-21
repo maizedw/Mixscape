@@ -69,6 +69,11 @@ public class TerrainAudioSwitcher : MonoBehaviour
         int mapX = (int)(((WorldPos.x - terrainPos.x) / terrainData.size.x) * terrainData.alphamapWidth);
         int mapZ = (int)(((WorldPos.z - terrainPos.z) / terrainData.size.z) * terrainData.alphamapHeight);
 
+        if(mapX < 0 || mapX >= terrainData.alphamapWidth || mapZ < 0 || mapZ >= terrainData.alphamapWidth)
+        {
+            return new float[0];
+        }
+
         // get the splat data for this cell as a 1x1xN 3d array (where N = number of textures)
         float[,,] splatmapData = terrainData.GetAlphamaps(mapX, mapZ, 1, 1);
 
@@ -89,7 +94,7 @@ public class TerrainAudioSwitcher : MonoBehaviour
         float[] mix = GetTextureMix(WorldPos);
 
         float maxMix = 0;
-        int maxIndex = 0;
+        int maxIndex = -1;
 
         // loop through each mix value and find the maximum
         for(int n = 0; n < mix.Length; n++)
