@@ -9,9 +9,12 @@ public class StateMachineBehaviourAudioEventInspector : AkBaseInspector
     
     public void OnEnable()
     {
-        eventID				= serializedObject.FindProperty("eventID");
-        m_guidProperty = new SerializedProperty[1];
-        m_guidProperty[0] = serializedObject.FindProperty("valueGuid.Array");
+        if(target != null)
+        {
+            eventID				= serializedObject.FindProperty("eventID");
+            m_guidProperty = new SerializedProperty[1];
+            m_guidProperty[0] = serializedObject.FindProperty("valueGuid.Array");
+        }
 
         //Needed by the base class to know which type of component its working with
         m_typeName		= "Event";
@@ -19,12 +22,15 @@ public class StateMachineBehaviourAudioEventInspector : AkBaseInspector
     }
 
     public override void OnChildInspectorGUI ()
-    {	
-        serializedObject.Update ();
+    {
+        if(target != null)
+        {
+            serializedObject.Update ();
 		
-        GUILayout.Space(2);
+            GUILayout.Space(2);
 
-        serializedObject.ApplyModifiedProperties ();
+            serializedObject.ApplyModifiedProperties ();
+        }
     }
 
     public override string UpdateIds (Guid[] in_guid)
@@ -35,9 +41,12 @@ public class StateMachineBehaviourAudioEventInspector : AkBaseInspector
 		
             if(e != null)
             {
-                serializedObject.Update();
-                eventID.intValue = e.ID;
-                serializedObject.ApplyModifiedProperties();
+                if(target != null)
+                {
+                    serializedObject.Update();
+                    eventID.intValue = e.ID;
+                    serializedObject.ApplyModifiedProperties();
+                }
 
                 return e.Name;
             }
