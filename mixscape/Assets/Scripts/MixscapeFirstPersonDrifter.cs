@@ -67,7 +67,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         jumpTimer = antiBunnyHopFactor;
     }
 
-    void Update()
+    private void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -95,8 +95,45 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         {
             _airborneTimer = 0.0f;
         }
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Transform cameraTransform = GetComponentInChildren<Camera>().transform;
+            Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+
+            if(!ProcessInteract(Physics.RaycastAll(ray, 10.0f)))
+            {
+                for(float sphereSize = 0.25f; sphereSize <= 1.01f; sphereSize += 0.25f)
+                {
+                    if(ProcessInteract(Physics.SphereCastAll(ray, sphereSize, 10.0f)))
+                    {
+                        break;
+                    }
+                }
+            }
+        }
     }
- 
+
+    private bool ProcessInteract(RaycastHit[] raycastHits)
+    {
+        foreach(RaycastHit raycastHit in raycastHits)
+        {
+            if(raycastHit.distance <= 0.0f)
+            {
+                continue;
+            }
+
+            InteractableObject interactTarget = raycastHit.collider.GetComponent<InteractableObject>();
+            if(interactTarget != null)
+            {
+                interactTarget.Interact(-transform.forward);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void FixedUpdate() {
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");

@@ -3,17 +3,14 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 
-public class Boinger : MonoBehaviour
+public class BoingInteractable : InteractableObject
 {
-    public AkEvent BoingSound;
     public float BoingTime = 0.8f;
     public float BoingSpeed = 14.0f;
     public float MaxRotation = 5.0f;
     public float BoingStartScaleDown = 0.075f;
     public float BoingEndExtraScaleUp = 0.05f;
     public bool BoingIsAtomic;
-    
-    public bool TestBoing;
 
     private Quaternion _baseRotation;
 
@@ -29,14 +26,9 @@ public class Boinger : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+    protected override void Update ()
 	{
-	    if(TestBoing)
-	    {
-	        Boing();
-	        TestBoing = false;
-
-	    }
+        base.Update();
 	    if(IsBoinging)
 	    {
 	        _boingTimer += Time.deltaTime;
@@ -57,7 +49,7 @@ public class Boinger : MonoBehaviour
 	    }
 	}
 
-    public void Boing(Vector3 rotateAroundVec = new Vector3())
+    public override void Interact(Vector3 interactDirection = new Vector3())
     {
         if(!isActiveAndEnabled)
             return;
@@ -65,11 +57,11 @@ public class Boinger : MonoBehaviour
         if(BoingIsAtomic && IsBoinging)
             return;
 
-        BoingSound.HandleEvent(null);
+        base.Interact(interactDirection);
 
-        if(rotateAroundVec == Vector3.zero)
+        if(interactDirection == Vector3.zero)
         {
-            rotateAroundVec = transform.forward;
+            interactDirection = transform.forward;
         }
 
         if(!IsBoinging)
@@ -81,8 +73,8 @@ public class Boinger : MonoBehaviour
         _boingTimer = 0.0f;
 
         // move boingaroundvec into local space
-        _boingAroundVec = transform.InverseTransformDirection(rotateAroundVec);
-        
+        _boingAroundVec = transform.InverseTransformDirection(interactDirection);
+
         LTSeq seq = LeanTween.sequence();
         seq.append(LeanTween.scaleY(gameObject, _baseYScale * (1.0f - BoingStartScaleDown), BoingTime * 0.2f).setEaseOutCubic());
         seq.append(0.2f);
