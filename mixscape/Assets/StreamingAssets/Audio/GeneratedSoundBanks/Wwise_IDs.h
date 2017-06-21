@@ -14,8 +14,12 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID GREETING = 1540195120U;
         static const AkUniqueID JUMP = 3833651337U;
         static const AkUniqueID LAND = 674522502U;
+        static const AkUniqueID LOWREGISTERGREETING = 279913627U;
+        static const AkUniqueID LOWREGISTERRESPONSE = 2707154247U;
+        static const AkUniqueID RESPONSE = 2090431140U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -51,6 +55,7 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID VOICEOVER = 4041657371U;
     } // namespace BANKS
 
     namespace BUSSES

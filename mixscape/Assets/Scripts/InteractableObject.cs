@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
     public AkEvent InteractSound;
     public bool TestInteract;
+    public Action<Vector3> CustomInteractCallback;
 
     protected virtual void Update()
     {
@@ -19,6 +21,11 @@ public class InteractableObject : MonoBehaviour
         if(InteractSound != null)
         {
             InteractSound.HandleEvent(null);
+        }
+
+        if(CustomInteractCallback != null)
+        {
+            CustomInteractCallback(interactDirection);
         }
     }
 }

@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}'
-    m_lastTimePsrt1: 811445200
-    m_lastTimePart2: -1999325264
+    m_lastTimePsrt1: -781457094
+    m_lastTimePart2: -1999325062
     List:
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
@@ -28,6 +28,16 @@ MonoBehaviour:
         ObjectType: 3
       ID: -1909339098
       Guid: 0d97b73199417e42930e7b2469461649
+      maxAttenuation: 0
+    - Name: Greeting
+      Path: Default Work Unit\Greeting
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Greeting
+        ObjectType: 3
+      ID: 1540195120
+      Guid: 606fae1ca8e8ae45b54dc053d731a21d
       maxAttenuation: 0
     - Name: Jump
       Path: Default Work Unit\Jump
@@ -49,6 +59,36 @@ MonoBehaviour:
       ID: 674522502
       Guid: a1ce79238a65ac479f475508ed01b752
       maxAttenuation: 0
+    - Name: LowRegisterGreeting
+      Path: Default Work Unit\LowRegisterGreeting
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: LowRegisterGreeting
+        ObjectType: 3
+      ID: 279913627
+      Guid: bc61954c3a67af4babafc8e58d44f245
+      maxAttenuation: 0
+    - Name: LowRegisterResponse
+      Path: Default Work Unit\LowRegisterResponse
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: LowRegisterResponse
+        ObjectType: 3
+      ID: -1587813049
+      Guid: aa023ebfb5a2f844b8e98d0485baf2c8
+      maxAttenuation: 0
+    - Name: Response
+      Path: Default Work Unit\Response
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Response
+        ObjectType: 3
+      ID: 2090431140
+      Guid: 2a2273929d2d04458d97aa812214707a
+      maxAttenuation: 0
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
@@ -67,8 +107,8 @@ MonoBehaviour:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E8E17F83-DB24-4756-A5E8-A5CDE0FDBFE3}'
-    m_lastTimePsrt1: 811214358
-    m_lastTimePart2: -1999325264
+    m_lastTimePsrt1: -1465740237
+    m_lastTimePart2: -1999325256
     List:
     - Name: TerrainSwitchGroup
       Path: Default Work Unit\TerrainSwitchGroup
@@ -95,8 +135,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E0A930E7-5E15-4E01-B06D-C6C7DACCD5BF}'
-    m_lastTimePsrt1: 811269473
-    m_lastTimePart2: -1999325264
+    m_lastTimePsrt1: -781406964
+    m_lastTimePart2: -1999325062
     List:
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
@@ -107,11 +147,19 @@ MonoBehaviour:
         ObjectType: 7
       ID: -1909339098
       Guid: 6017f35f4be5624aaec217e66430d0fc
+    - Name: VoiceOver
+      Path: Default Work Unit\VoiceOver
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: VoiceOver
+        ObjectType: 7
+      ID: -253309925
+      Guid: 48ccc83017ea0e40a063b8d33addea4f
   ExpandedItems:
   - /mixscape_WwiseProject
-  - /mixscape_WwiseProject/Switches
-  - /mixscape_WwiseProject/Switches/Default Work Unit
-  - /mixscape_WwiseProject/Switches/Default Work Unit/TerrainSwitchGroup
+  - /mixscape_WwiseProject/Events
+  - /mixscape_WwiseProject/Events/Default Work Unit
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

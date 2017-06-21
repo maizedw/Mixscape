@@ -117,6 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1043222566}
   - component: {fileID: 1043222565}
+  - component: {fileID: 1043222567}
   m_Layer: 0
   m_Name: Soundbanks
   m_TagString: Untagged
@@ -156,3 +157,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1043222567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1043222564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85e8b9bc1d2ab245ba389f49e0040d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: 48ccc83017ea0e40a063b8d33addea4f
+  bankName: VoiceOver
+  loadAsynchronous: 0
+  decodeBank: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea

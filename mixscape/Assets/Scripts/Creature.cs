@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
-    public Animator Animator { get; private set; }
-
     public float TurnSpeedDegrees = 180.0f;
 
-    // Use this for initialization
-    void Start()
+    private Animator _animator;
+    public Animator Animator
     {
-        Animator = GetComponent<Animator>();
+        get
+        {
+            if(_animator == null)
+            {
+                _animator = GetComponent<Animator>();
+                if(_animator == null)
+                    _animator = GetComponentInChildren<Animator>();
+            }
+            return _animator;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Use this for initialization
+    protected virtual void Start()
     {
-
     }
 
     public void TurnToFace(Vector3 direction)
