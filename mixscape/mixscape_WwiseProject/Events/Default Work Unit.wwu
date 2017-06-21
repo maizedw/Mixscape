@@ -36,6 +36,50 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="LowRegisterGreeting" ID="{4C9561BC-673A-4BAF-ABAF-C8E58D44F245}">
+					<ChildrenList>
+						<Action Name="Play" ID="{D4722DF4-0774-4B83-907C-F4B7D562C250}" ShortID="378499492" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{7B92B073-C062-4EAB-B61B-CB9B61D4C6DA}" Global="false">
+									<ObjectRef Name="ted_greet" ID="{0A43CA39-F1FE-44C2-BB73-E1BFA462D5E6}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="LowRegisterResponse" ID="{BF3E02AA-A2B5-44F8-B8E9-8D0485BAF2C8}">
+					<ChildrenList>
+						<Action Name="Play" ID="{06E69B7B-8BFE-4693-9864-84AE871E1E03}" ShortID="989329138" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{F791E59C-F77D-47F8-93B4-2886DEFA1366}" Global="false">
+									<ObjectRef Name="hugo_response" ID="{6F74C9B6-7D46-4872-8034-B830AE3F48BA}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Greeting" ID="{1CAE6F60-E8A8-45AE-B54D-C053D731A21D}">
+					<ChildrenList>
+						<Action Name="Play" ID="{A087C9DD-18CE-4FD8-838F-F9619378040A}" ShortID="821549484" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{C2535EDA-DF3D-452E-BBAE-7DDA2CC0310D}" Global="false">
+									<ObjectRef Name="lily_greet" ID="{0E4BF95C-A6D5-4009-9949-8039F60C7CE0}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Response" ID="{9273222A-2D9D-4504-8D97-AA812214707A}">
+					<ChildrenList>
+						<Action Name="Play" ID="{38F1FD52-1DB7-4424-8FA4-2385B4A5F91A}" ShortID="945928388" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{9F257E6A-937E-4CC4-97F2-821862D0B2B6}" Global="false">
+									<ObjectRef Name="lily_response" ID="{3BB971A1-53C2-464B-9A89-27957B9292C5}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

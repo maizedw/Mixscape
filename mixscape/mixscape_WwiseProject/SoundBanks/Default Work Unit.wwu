@@ -12,6 +12,16 @@
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>
+				<SoundBank Name="VoiceOver" ID="{30C8CC48-EA17-400E-A063-B8D33ADDEA4F}">
+					<ObjectInclusionList>
+						<ObjectRef Name="LowRegisterResponse" ID="{BF3E02AA-A2B5-44F8-B8E9-8D0485BAF2C8}" WorkUnitID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Response" ID="{9273222A-2D9D-4504-8D97-AA812214707A}" WorkUnitID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Greeting" ID="{1CAE6F60-E8A8-45AE-B54D-C053D731A21D}" WorkUnitID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="LowRegisterGreeting" ID="{4C9561BC-673A-4BAF-ABAF-C8E58D44F245}" WorkUnitID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" Filter="7" Origin="Manual"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
 			</ChildrenList>
 		</WorkUnit>
 	</SoundBanks>
