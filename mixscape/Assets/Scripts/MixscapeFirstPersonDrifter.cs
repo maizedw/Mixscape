@@ -86,6 +86,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     private LTDescr footstepDistanceTween;
     private bool running;
     private GlobalFog _globalFog;
+    private bool _globalFogDefaultExcludeFarPixels = true;
 
     void Start()
     {
@@ -93,6 +94,11 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         _camera = GetComponentInChildren<Camera>();
 
         _globalFog = _camera.GetComponent<GlobalFog>();
+        if (_globalFog != null)
+        {
+            _globalFogDefaultExcludeFarPixels = _globalFog.excludeFarPixels;
+        }
+
         _waterObjects = GameObject.FindGameObjectsWithTag("Water");
         myTransform = transform;
         speed = walkSpeed;
@@ -194,11 +200,21 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         {
             if(EnterUnderwaterEvent != null)
                 EnterUnderwaterEvent.HandleEvent(null);
+
+            if (_globalFog != null)
+            {
+                _globalFog.excludeFarPixels = false;
+            }
         }
         if(wasUnderWater && WaterState != WaterState.Underwater)
         {
             if(ExitUnderwaterEvent != null)
                 ExitUnderwaterEvent.HandleEvent(null);
+
+            if (_globalFog != null)
+            {
+                _globalFog.excludeFarPixels = _globalFogDefaultExcludeFarPixels;
+            }
         }
 
         AkSoundEngine.SetRTPCValue("player_scale", transform.lossyScale.y);
