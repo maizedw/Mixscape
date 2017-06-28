@@ -43,4 +43,17 @@ public class CreatureVision : MonoBehaviour
             }
         }
     }
+
+    public bool IsInBounds(Collider collider)
+    {
+        foreach(var coll in GetComponents<Collider>())
+        {
+            if(coll.bounds.Intersects(collider.bounds))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

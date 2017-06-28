@@ -103,6 +103,7 @@ MonoBehaviour:
   RespondParameter: Responding
   GreetEvent: {fileID: 114187676168922466}
   RespondEvent: {fileID: 114756689458536318}
+  EngageTime: 5
 --- !u!114 &114187676168922466
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -41,6 +41,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     public AkEvent JumpEvent;
     public float MinAirborneTimeToLand = 0.4f;
     public AkEvent LandEvent;
+    public Collider PrimaryCollider;
 
     private Vector3 moveDirection = Vector3.zero;
     private bool grounded = false;

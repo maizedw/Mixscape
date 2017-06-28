@@ -242,3 +242,4 @@ MonoBehaviour:
   RespondParameter: Responding
   GreetEvent: {fileID: 114437480985391112}
   RespondEvent: {fileID: 114201744198457606}
+  EngageTime: 5

@@ -31,6 +31,8 @@ public class Creature : MonoBehaviour
         if(direction == Vector3.zero)
             return;
 
+        LeanTween.cancelAll(gameObject);
+
         Vector3 currForward = transform.forward;
         currForward.Normalize();
         Vector3 targetForward = direction;
