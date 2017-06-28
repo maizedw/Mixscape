@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 114547033003498156}
   - component: {fileID: 114659200708053110}
   - component: {fileID: 114640879111929698}
+  - component: {fileID: 114043724637288402}
+  - component: {fileID: 114553016683220428}
   m_Layer: 0
   m_Name: MixscapePlayer
   m_TagString: Player
@@ -287,6 +289,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listenerId: 0
+--- !u!114 &114043724637288402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6b3040d2b035d43863919cde51bef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  groupGuid: d644b410ab53d644bdf9f776a571d230
+  valueGuid: 4765944f32115d48958cafde84ec53be
+  groupID: -651599283
+  valueID: -1037612519
 --- !u!114 &114243765293275114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,6 +320,7 @@ MonoBehaviour:
   walkSpeed: 4
   runSpeed: 10
   InteractMaxDistance: 10
+  LinkSpeedToScale: 0
   enableRunning: 1
   jumpSpeed: 4
   gravity: 10
@@ -310,12 +330,17 @@ MonoBehaviour:
   airControl: 1
   antiBumpFactor: 0.75
   antiBunnyHopFactor: 1
-  FootstepDistance: 2
+  WalkFootstepDistance: 2
+  RunFootstepDistance: 3.2
   FootstepEvent: {fileID: 114465216847026638}
   JumpEvent: {fileID: 114247241507297656}
   MinAirborneTimeToLand: 0.4
   LandEvent: {fileID: 114720898784520316}
   PrimaryCollider: {fileID: 14300000}
+  EnableResizeControls: 1
+  MaxScale: 20
+  StandingInWaterSpeedMultiplier: 0.667
+  UnderwaterSpeedMultiplier: 0.333
 --- !u!114 &114247241507297656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,6 +401,31 @@ MonoBehaviour:
     Switch: {fileID: 114659200708053110}
   - TextureName: ground01
     Switch: {fileID: 114640879111929698}
+  - TextureName: ground_diff_spec
+    Switch: {fileID: 114659200708053110}
+  - TextureName: Wavy_Sand
+    Switch: {fileID: 114659200708053110}
+  - TextureName: MRLFGenericRockGrass_Specular
+    Switch: {fileID: 114640879111929698}
+  StandingInWaterSwitch: {fileID: 114043724637288402}
+  UnderwaterSwitch: {fileID: 114553016683220428}
+--- !u!114 &114553016683220428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6b3040d2b035d43863919cde51bef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  groupGuid: d644b410ab53d644bdf9f776a571d230
+  valueGuid: d77d4535769a8b4f941dd486bb275cc2
+  groupID: -651599283
+  valueID: -2081729634
 --- !u!114 &114640879111929698
 MonoBehaviour:
   m_ObjectHideFlags: 1

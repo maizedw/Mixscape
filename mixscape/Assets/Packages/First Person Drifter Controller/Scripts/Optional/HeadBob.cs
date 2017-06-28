@@ -7,31 +7,25 @@ using System.Collections;
 
 public class HeadBob : MonoBehaviour
 {	
-	private float bobbingSpeed = 0.25f; 
-	public float bobbingAmount = 0.05f; 
+	public float bobbingAmount = 0.05f;
 	public float  midpoint = 0.6f; 
 	
-	private float timer = 0.0f; 
- 
-	void Update ()
+    private CharacterController _characterController;
+    private MixscapeFirstPersonDrifter _player;
+
+    protected void Start()
+    {
+        _characterController = GetComponentInParent<CharacterController>();
+        _player = GetComponentInParent<MixscapeFirstPersonDrifter>();
+    }
+
+    void Update ()
 	{ 
 	    float waveslice = 0.0f; 
 	    float horizontal = Input.GetAxis("Horizontal"); 
 	    float vertical = Input.GetAxis("Vertical"); 
 	    
-	    if (Mathf.Abs(horizontal) == 0f && Mathf.Abs(vertical) == 0f)
-	    { 
-	       timer = 0.0f; 
-	    } 
-	    else
-	    { 
-	       waveslice = Mathf.Sin(timer); 
-	       timer = timer + bobbingSpeed / transform.lossyScale.y; 
-	       if (timer > Mathf.PI * 2f)
-	       { 
-	          timer = timer - (Mathf.PI * 2f); 
-	       } 
-	    } 
+	    waveslice = Mathf.Sin(_player.FootstepPercentage * Mathf.PI * 2.0f); 
 	    if (waveslice != 0f)
 	    { 
 	       float translateChange = waveslice * bobbingAmount; 

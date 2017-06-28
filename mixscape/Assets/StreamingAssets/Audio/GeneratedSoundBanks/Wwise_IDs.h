@@ -32,6 +32,8 @@ namespace AK
             {
                 static const AkUniqueID DIRT = 2195636714U;
                 static const AkUniqueID GRASS = 4248645337U;
+                static const AkUniqueID STANDINGINWATER = 3257354777U;
+                static const AkUniqueID UNDERWATER = 2213237662U;
             } // namespace SWITCH
         } // namespace TERRAINSWITCHGROUP
 

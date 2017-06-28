@@ -7,6 +7,8 @@
 					<ChildrenList>
 						<Switch Name="Dirt" ID="{BD1D2F8A-9404-4F03-A5E0-D039B2879AF1}"/>
 						<Switch Name="Grass" ID="{6B348065-BE3D-434D-A1B2-6F48B17B1687}"/>
+						<Switch Name="StandingInWater" ID="{4F946547-1132-485D-958C-AFDE84EC53BE}"/>
+						<Switch Name="Underwater" ID="{35457DD7-9A76-4F8B-941D-D486BB275CC2}"/>
 					</ChildrenList>
 				</SwitchGroup>
 			</ChildrenList>

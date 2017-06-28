@@ -13,16 +13,21 @@ public class TerrainAudioTextureSwitch
 public class TerrainAudioSwitcher : MonoBehaviour
 {
     public TerrainAudioTextureSwitch[] TextureSwitchMap;
+    public AkSwitch StandingInWaterSwitch;
+    public AkSwitch UnderwaterSwitch;
 
     private Terrain terrain;
     private TerrainData terrainData;
     private Vector3 terrainPos;
     private int _currTextureIndex = -1;
+    private WaterState _currWaterState;
+    private MixscapeFirstPersonDrifter _player;
 
     // Use this for initialization
     void Start()
     {
-
+        _player = GetComponent<MixscapeFirstPersonDrifter>();
+        
         terrain = Terrain.activeTerrain;
         terrainData = terrain.terrainData;
         terrainPos = terrain.transform.position;
@@ -32,19 +37,52 @@ public class TerrainAudioSwitcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool needsSwitch = false;
+        WaterState lastWaterState = _currWaterState;
+        _currWaterState = _player.WaterState;
+        if(lastWaterState != _currWaterState)
+        {
+            needsSwitch = true;
+        }
+        
         int lastTextureIndex = _currTextureIndex;
         _currTextureIndex = GetMainTexture(transform.position);
-        if(lastTextureIndex != _currTextureIndex && _currTextureIndex >= 0 && _currTextureIndex < terrainData.splatPrototypes.Length)
+        if(lastTextureIndex != _currTextureIndex)
         {
-            foreach(TerrainAudioTextureSwitch audioTextureSwitch in TextureSwitchMap)
+            needsSwitch = true;
+        }
+
+        if(needsSwitch)
+        {
+            switch(_currWaterState)
             {
-                if(audioTextureSwitch != null && string.Equals(audioTextureSwitch.TextureName, terrainData.splatPrototypes[_currTextureIndex].texture.name))
-                {
-                    if(audioTextureSwitch.Switch != null)
+                case WaterState.None:
+                    if(_currTextureIndex >= 0 && _currTextureIndex < terrainData.splatPrototypes.Length)
                     {
-                        audioTextureSwitch.Switch.HandleEvent(null);
+                        foreach(TerrainAudioTextureSwitch audioTextureSwitch in TextureSwitchMap)
+                        {
+                            if(audioTextureSwitch != null && string.Equals(audioTextureSwitch.TextureName, terrainData.splatPrototypes[_currTextureIndex].texture.name))
+                            {
+                                if(audioTextureSwitch.Switch != null)
+                                {
+                                    audioTextureSwitch.Switch.HandleEvent(null);
+                                }
+                            }
+                        }
                     }
-                }
+                    break;
+                case WaterState.StandingInWater:
+                    if(StandingInWaterSwitch != null)
+                    {
+                        StandingInWaterSwitch.HandleEvent(null);
+                    }
+                    break;
+                case WaterState.Underwater:
+                    if(UnderwaterSwitch != null)
+                    {
+                        UnderwaterSwitch.HandleEvent(null);
+                    }
+                    break;
             }
         }
     }

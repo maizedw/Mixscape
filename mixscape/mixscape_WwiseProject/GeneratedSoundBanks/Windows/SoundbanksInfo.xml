@@ -46,6 +46,14 @@
 					<ShortName>Land.wav</ShortName>
 					<Path>SFX\Land_9E69E797.wem</Path>
 				</File>
+				<File Id="697224158" Language="SFX">
+					<ShortName>269010__lwdickens__water-splash-3.wav</ShortName>
+					<Path>SFX\269010__lwdickens__water-splash-3_9E69E797.wem</Path>
+				</File>
+				<File Id="714319681" Language="SFX">
+					<ShortName>190085__tran5ient__splash9.wav</ShortName>
+					<Path>SFX\190085__tran5ient__splash9_9E69E797.wem</Path>
+				</File>
 				<File Id="921952352" Language="SFX">
 					<ShortName>Jump.wav</ShortName>
 					<Path>SFX\Jump_9E69E797.wem</Path>

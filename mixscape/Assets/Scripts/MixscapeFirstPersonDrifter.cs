@@ -2,6 +2,13 @@ using UMA;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+public enum WaterState
+{
+    None,
+    StandingInWater,
+    Underwater
+};
+
 [RequireComponent (typeof (CharacterController))]
 public class MixscapeFirstPersonDrifter: MonoBehaviour
 {
@@ -38,7 +45,9 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     // Player must be grounded for at least this many physics frames before being able to jump again; set to 0 to allow bunny hopping
     public int antiBunnyHopFactor = 1;
 
-    public float FootstepDistance = 1.0f;
+    public float WalkFootstepDistance = 2.0f;
+    public float RunFootstepDistance = 3.2f;
+    private float _currFootstepDistance;
     public AkEvent FootstepEvent;
     public AkEvent JumpEvent;
     public float MinAirborneTimeToLand = 0.4f;
@@ -46,6 +55,12 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     public Collider PrimaryCollider;
     public bool EnableResizeControls = true;
     public float MaxScale = 20.0f;
+    public float StandingInWaterSpeedMultiplier = 0.667f;
+    public float UnderwaterSpeedMultiplier = 0.333f;
+
+    public WaterState WaterState { get; private set; }
+
+    public float FootstepPercentage { get { return _footstepMoveAmount / _currFootstepDistance; } }
 
     private Vector3 moveDirection = Vector3.zero;
     private bool grounded = false;
@@ -63,15 +78,22 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     private float _footstepMoveAmount = 0.0f;
     private bool _sliding;
     private float _airborneTimer = 0.0f;
+    private Camera _camera;
+    private GameObject[] _waterObjects;
+    private LTDescr footstepDistanceTween;
+    private bool running;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        _camera = GetComponentInChildren<Camera>();
+        _waterObjects = GameObject.FindGameObjectsWithTag("Water");
         myTransform = transform;
         speed = walkSpeed;
         rayDistance = controller.height * .5f + controller.radius;
         slideLimit = controller.slopeLimit - .1f;
         jumpTimer = antiBunnyHopFactor;
+        _currFootstepDistance = WalkFootstepDistance;
 
         UMADynamicAvatar avatar = GetComponentInChildren<UMADynamicAvatar>();
         if(avatar != null)
@@ -90,7 +112,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         }
         else
         {
-            if(_footstepMoveAmount > FootstepDistance)
+            if(_footstepMoveAmount > _currFootstepDistance)
             {
                 if(FootstepEvent != null)
                 {
@@ -126,7 +148,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
 
         if(Input.GetButtonDown("Fire1"))
         {
-            Transform cameraTransform = GetComponentInChildren<Camera>().transform;
+            Transform cameraTransform = _camera.transform;
             Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
             float interactMaxDistance = InteractMaxDistance * transform.lossyScale.y;
             if(!ProcessInteract(Physics.RaycastAll(ray, interactMaxDistance)))
@@ -139,6 +161,25 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
                     {
                         break;
                     }
+                }
+            }
+        }
+
+        if(WaterState != WaterState.None)
+        {
+            WaterState = WaterState.StandingInWater;
+            foreach(var waterObject in _waterObjects)
+            {
+                foreach(var waterCollider in waterObject.GetComponents<Collider>())
+                {
+                    if(waterCollider.bounds.Contains(_camera.transform.position))
+                    {
+                        WaterState = WaterState.Underwater;
+                        break;
+                    }
+
+                    if(WaterState == WaterState.Underwater)
+                        break;
                 }
             }
         }
@@ -209,10 +250,33 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
  
             if( enableRunning )
             {
-                speed = Input.GetButton("Run")? runSpeed : walkSpeed;
+                bool wasRunning = running;
+                running = Input.GetButton("Run");
+                if(wasRunning != running)
+                {
+                    if(footstepDistanceTween != null)
+                    {
+                        LeanTween.cancel(footstepDistanceTween.id);
+                        footstepDistanceTween = null;
+                    }
+
+                    float targetVal = running ? RunFootstepDistance : WalkFootstepDistance;
+                    footstepDistanceTween = LeanTween.value(_currFootstepDistance, targetVal, 0.5f).setOnUpdate(floatVal => _currFootstepDistance = floatVal).setOnComplete(() => footstepDistanceTween = null);
+                }
+
+                speed = running ? runSpeed : walkSpeed;
                 if(LinkSpeedToScale)
                 {
                     speed *= transform.lossyScale.y;
+                }
+                switch(WaterState)
+                {
+                    case WaterState.StandingInWater:
+                        speed *= StandingInWaterSpeedMultiplier;
+                        break;
+                    case WaterState.Underwater:
+                        speed *= UnderwaterSpeedMultiplier;
+                        break;
                 }
             }
  
@@ -259,9 +323,14 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
                 moveDirection = myTransform.TransformDirection(moveDirection);
             }
         }
- 
+
         // Apply gravity
-        moveDirection.y -= gravity * Time.fixedDeltaTime;
+        float gravityMultiplier = gravity;
+        if(WaterState == WaterState.Underwater)
+        {
+            gravityMultiplier *= UnderwaterSpeedMultiplier;
+        }
+        moveDirection.y -= gravityMultiplier * Time.fixedDeltaTime;
 
         bool wasGrounded = grounded;
 
@@ -300,5 +369,21 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     void FallingDamageAlert (float fallDistance)
     {
         //print ("Ouch! Fell " + fallDistance + " units!");   
+    }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Water"))
+        {
+            WaterState = WaterState.StandingInWater;
+        }
+    }
+
+    protected void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Water"))
+        {
+            WaterState = WaterState.None;
+        }
     }
 }

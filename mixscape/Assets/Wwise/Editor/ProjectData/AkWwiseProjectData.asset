@@ -107,8 +107,8 @@ MonoBehaviour:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E8E17F83-DB24-4756-A5E8-A5CDE0FDBFE3}'
-    m_lastTimePsrt1: -1465740237
-    m_lastTimePart2: -1999325256
+    m_lastTimePsrt1: -1619196772
+    m_lastTimePart2: -1999323687
     List:
     - Name: TerrainSwitchGroup
       Path: Default Work Unit\TerrainSwitchGroup
@@ -122,15 +122,23 @@ MonoBehaviour:
       values:
       - Dirt
       - Grass
+      - StandingInWater
+      - Underwater
       ValueIcons:
       - ElementName: Dirt
         ObjectType: 10
       - ElementName: Grass
         ObjectType: 10
-      valueIDs: eac1de82d92e3dfd
+      - ElementName: StandingInWater
+        ObjectType: 10
+      - ElementName: Underwater
+        ObjectType: 10
+      valueIDs: eac1de82d92e3dfd194a27c29e53eb83
       ValueGuids:
       - bytes: 8a2f1dbd0494034fa5e0d039b2879af1
       - bytes: 6580346b3dbe4d43a1b26f48b17b1687
+      - bytes: 4765944f32115d48958cafde84ec53be
+      - bytes: d77d4535769a8b4f941dd486bb275cc2
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
@@ -158,10 +166,6 @@ MonoBehaviour:
       Guid: 48ccc83017ea0e40a063b8d33addea4f
   ExpandedItems:
   - /mixscape_WwiseProject
-  - /mixscape_WwiseProject/Events
-  - /mixscape_WwiseProject/Events/Default Work Unit
-  - /mixscape_WwiseProject/SoundBanks
-  - /mixscape_WwiseProject/SoundBanks/Default Work Unit
   - /mixscape_WwiseProject/Switches
   - /mixscape_WwiseProject/Switches/Default Work Unit
   - /mixscape_WwiseProject/Switches/Default Work Unit/TerrainSwitchGroup
