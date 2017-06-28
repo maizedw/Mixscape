@@ -8,10 +8,12 @@ namespace UMA.Examples
 
         protected Animator animator;
         public float DirectionDampTime = .25f;
+        private CharacterController characterController;
 
         void Start()
         {
             animator = GetComponent<Animator>();
+            characterController = GetComponentInParent<CharacterController>();
 
             if (animator == null) return;
             if (animator.layerCount >= 2)
@@ -23,9 +25,9 @@ namespace UMA.Examples
             if (animator)
             {
                 float h = Input.GetAxis("Horizontal");
-                float v = Input.GetAxis("Vertical");
+                float speed = characterController.velocity.magnitude;
 
-                animator.SetFloat("Speed", h * h + v * v);
+                animator.SetFloat("Speed", speed / transform.lossyScale.y);
                 animator.SetFloat("Direction", h, DirectionDampTime, Time.deltaTime);
             }
             else

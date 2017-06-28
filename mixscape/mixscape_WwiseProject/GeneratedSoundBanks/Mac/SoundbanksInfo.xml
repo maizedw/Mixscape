@@ -52,5 +52,42 @@
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
+		<SoundBank Id="4041657371" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\VoiceOver</ObjectPath>
+			<ShortName>VoiceOver</ShortName>
+			<Path>VoiceOver.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1540195120" Name="Greeting" ObjectPath="\Events\Default Work Unit\Greeting"/>
+				<Event Id="279913627" Name="LowRegisterGreeting" ObjectPath="\Events\Default Work Unit\LowRegisterGreeting"/>
+				<Event Id="2707154247" Name="LowRegisterResponse" ObjectPath="\Events\Default Work Unit\LowRegisterResponse"/>
+				<Event Id="2090431140" Name="Response" ObjectPath="\Events\Default Work Unit\Response"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="180310895" Language="SFX">
+					<ShortName>lily11.wav</ShortName>
+					<Path>SFX\lily11_9E69E797.wem</Path>
+				</File>
+				<File Id="647477946" Language="SFX">
+					<ShortName>lily5.wav</ShortName>
+					<Path>SFX\lily5_9E69E797.wem</Path>
+				</File>
+				<File Id="721878772" Language="SFX">
+					<ShortName>ted03.wav</ShortName>
+					<Path>SFX\ted03_9E69E797.wem</Path>
+				</File>
+				<File Id="759825817" Language="SFX">
+					<ShortName>hugo08.wav</ShortName>
+					<Path>SFX\hugo08_9E69E797.wem</Path>
+				</File>
+				<File Id="796168968" Language="SFX">
+					<ShortName>hugo06.wav</ShortName>
+					<Path>SFX\hugo06_9E69E797.wem</Path>
+				</File>
+				<File Id="885326075" Language="SFX">
+					<ShortName>lily01.wav</ShortName>
+					<Path>SFX\lily01_9E69E797.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
 	</SoundBanks>
 </SoundBanksInfo>

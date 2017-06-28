@@ -26,7 +26,7 @@ public class HeadBob : MonoBehaviour
 	    else
 	    { 
 	       waveslice = Mathf.Sin(timer); 
-	       timer = timer + bobbingSpeed; 
+	       timer = timer + bobbingSpeed / transform.lossyScale.y; 
 	       if (timer > Mathf.PI * 2f)
 	       { 
 	          timer = timer - (Mathf.PI * 2f); 

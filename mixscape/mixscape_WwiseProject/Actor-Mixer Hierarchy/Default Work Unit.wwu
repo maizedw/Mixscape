@@ -43,6 +43,92 @@
 				</Sound>
 				<SwitchContainer Name="FootstepsSwitch" ID="{1A602F71-D7A2-41FA-A206-B735E6C9DBD0}" ShortID="684483235">
 					<PropertyList>
+						<Property Name="Lowpass" Type="int16">
+							<RTPCList>
+								<RTPC Name="" ID="{B728AB4B-156F-44CE-9EB1-18348EE9279A}" ShortID="234184124">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="player_scale" ID="{9FEEF2F8-D243-479E-8392-34DE735905AB}" WorkUnitID="{FF988748-8116-4D5F-8253-AC2A1C3348B9}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{5C7916D2-B3DC-475B-8C8C-659472DCA39D}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="65537"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>100</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>0.99283</XPos>
+												<YPos>1</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>3.99902</XPos>
+												<YPos>-53</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>7.98857</XPos>
+												<YPos>-84</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>100</XPos>
+												<YPos>-100</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+						<Property Name="Pitch" Type="int32">
+							<RTPCList>
+								<RTPC Name="" ID="{2E6709E3-C4C1-4253-A1CF-8C4883B2DE2E}" ShortID="211785060">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="player_scale" ID="{9FEEF2F8-D243-479E-8392-34DE735905AB}" WorkUnitID="{FF988748-8116-4D5F-8253-AC2A1C3348B9}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{1D5E4E32-552D-4DE1-BD59-3AF7452A3E6C}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="65537"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>4800</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>0.99283</XPos>
+												<YPos>72</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>3.99902</XPos>
+												<YPos>-2529</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>7.98857</XPos>
+												<YPos>-4018</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>100</XPos>
+												<YPos>-4800</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
 						<Property Name="UseGameAuxSends" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>

@@ -7,7 +7,9 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
 {
     public float walkSpeed = 6.0f;
     public float runSpeed = 10.0f;
- 
+    public float InteractMaxDistance = 10.0f;
+    public bool LinkSpeedToScale;
+
     // If true, diagonal speed (when strafing + moving forward or back) can't exceed normal move speed; otherwise it's about 1.4 times faster
     private bool limitDiagonalSpeed = true;
  
@@ -42,6 +44,8 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     public float MinAirborneTimeToLand = 0.4f;
     public AkEvent LandEvent;
     public Collider PrimaryCollider;
+    public bool EnableResizeControls = true;
+    public float MaxScale = 20.0f;
 
     private Vector3 moveDirection = Vector3.zero;
     private bool grounded = false;
@@ -96,6 +100,21 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             }
         }
 
+        if(EnableResizeControls)
+        {
+            float currScale = transform.localScale.y;
+            if(Input.GetKey(KeyCode.Q))
+            {
+                currScale = currScale - (currScale * Time.deltaTime);
+            }
+            else if(Input.GetKey(KeyCode.E))
+            {
+                currScale = currScale + (currScale * Time.deltaTime);
+            }
+            currScale = Mathf.Clamp(currScale, 0.1f, MaxScale);
+            transform.localScale = new Vector3(currScale, currScale, currScale);
+        }
+
         if(grounded == false)
         {
             _airborneTimer += Time.deltaTime;
@@ -109,18 +128,22 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         {
             Transform cameraTransform = GetComponentInChildren<Camera>().transform;
             Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
-
-            if(!ProcessInteract(Physics.RaycastAll(ray, 10.0f)))
+            float interactMaxDistance = InteractMaxDistance * transform.lossyScale.y;
+            if(!ProcessInteract(Physics.RaycastAll(ray, interactMaxDistance)))
             {
-                for(float sphereSize = 0.25f; sphereSize <= 1.01f; sphereSize += 0.25f)
+                float interactSphereSize = 0.25f * transform.lossyScale.y;
+                float maxSphereSize = (interactSphereSize * 4.0f) + 0.01f;
+                for(float sphereSize = interactSphereSize; sphereSize <= maxSphereSize; sphereSize += interactSphereSize)
                 {
-                    if(ProcessInteract(Physics.SphereCastAll(ray, sphereSize, 10.0f)))
+                    if(ProcessInteract(Physics.SphereCastAll(ray, sphereSize, interactMaxDistance)))
                     {
                         break;
                     }
                 }
             }
         }
+
+        AkSoundEngine.SetRTPCValue("player_scale", transform.lossyScale.y);
     }
 
     private void LateUpdate()
@@ -187,6 +210,10 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             if( enableRunning )
             {
                 speed = Input.GetButton("Run")? runSpeed : walkSpeed;
+                if(LinkSpeedToScale)
+                {
+                    speed *= transform.lossyScale.y;
+                }
             }
  
             // If sliding (and it's allowed), or if we're on an object tagged "Slide", get a vector pointing down the slope we're on
@@ -244,7 +271,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         grounded = (controller.Move(movementThisFrame) & CollisionFlags.Below) != 0;
         if(grounded && !_sliding)
         {
-            _footstepMoveAmount += movementThisFrame.magnitude;
+            _footstepMoveAmount += movementThisFrame.magnitude / transform.lossyScale.y;
         }
         else
         {

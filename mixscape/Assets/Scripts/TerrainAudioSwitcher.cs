@@ -51,7 +51,7 @@ public class TerrainAudioSwitcher : MonoBehaviour
 
     void OnGUI()
     {
-        if(terrainData.splatPrototypes.Length > 0)
+        if(terrainData.splatPrototypes.Length > 0 && _currTextureIndex >= 0 && _currTextureIndex < terrainData.splatPrototypes.Length)
         {
             GUI.Box(new Rect(100, 100, 200, 25), "index: " + _currTextureIndex.ToString() + ", name: " + terrainData.splatPrototypes[_currTextureIndex].texture.name);
         }

@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}'
-    m_lastTimePsrt1: -781457094
-    m_lastTimePart2: -1999325062
+    m_lastTimePsrt1: 1343215140
+    m_lastTimePart2: -1999325026
     List:
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
@@ -135,8 +135,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E0A930E7-5E15-4E01-B06D-C6C7DACCD5BF}'
-    m_lastTimePsrt1: -781406964
-    m_lastTimePart2: -1999325062
+    m_lastTimePsrt1: -1299364033
+    m_lastTimePart2: -1999323692
     List:
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
@@ -160,6 +160,11 @@ MonoBehaviour:
   - /mixscape_WwiseProject
   - /mixscape_WwiseProject/Events
   - /mixscape_WwiseProject/Events/Default Work Unit
+  - /mixscape_WwiseProject/SoundBanks
+  - /mixscape_WwiseProject/SoundBanks/Default Work Unit
+  - /mixscape_WwiseProject/Switches
+  - /mixscape_WwiseProject/Switches/Default Work Unit
+  - /mixscape_WwiseProject/Switches/Default Work Unit/TerrainSwitchGroup
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

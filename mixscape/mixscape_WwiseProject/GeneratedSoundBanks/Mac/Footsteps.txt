@@ -12,6 +12,7 @@ Switch	ID	Name	Switch Group			Notes
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	129	MIDI note velocity			\MIDI note velocity	
+	2861796105	player_scale			\Default Work Unit\player_scale	
 
 Modulator Envelope	ID	Name			Wwise Object Path	Notes
 	400517537	Modulator Envelope (Custom)				
