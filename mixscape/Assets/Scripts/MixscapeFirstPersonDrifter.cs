@@ -87,6 +87,8 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     private bool running;
     private GlobalFog _globalFog;
     private bool _globalFogDefaultExcludeFarPixels = true;
+    private Color _globalFogDefaultColor = Color.gray;
+    public Color GlobalFogUnderwaterColor = Color.blue;
 
     void Start()
     {
@@ -98,6 +100,8 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         {
             _globalFogDefaultExcludeFarPixels = _globalFog.excludeFarPixels;
         }
+
+        _globalFogDefaultColor = RenderSettings.fogColor;
 
         _waterObjects = GameObject.FindGameObjectsWithTag("Water");
         myTransform = transform;
@@ -238,6 +242,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             if (_globalFog != null)
             {
                 _globalFog.excludeFarPixels = false;
+                RenderSettings.fogColor = GlobalFogUnderwaterColor;
             }
         }
         if(wasUnderWater && WaterState != WaterState.Underwater)
@@ -248,6 +253,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             if (_globalFog != null)
             {
                 _globalFog.excludeFarPixels = _globalFogDefaultExcludeFarPixels;
+                RenderSettings.fogColor = _globalFogDefaultColor;
             }
         }
 

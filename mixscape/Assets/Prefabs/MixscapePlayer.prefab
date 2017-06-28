@@ -513,6 +513,7 @@ MonoBehaviour:
   MaxScale: 20
   StandingInWaterSpeedMultiplier: 0.667
   UnderwaterSpeedMultiplier: 0.333
+  GlobalFogUnderwaterColor: {r: 0.21204586, g: 0.28678557, b: 0.3897059, a: 1}
 --- !u!114 &114247241507297656
 MonoBehaviour:
   m_ObjectHideFlags: 1
