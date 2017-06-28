@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33483086698672494}
   - component: {fileID: 65855671944756604}
   - component: {fileID: 23053005723156642}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33986777790313148}
   - component: {fileID: 65370730072020948}
   - component: {fileID: 23544921786603404}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4970317529489392}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WorldBoundaryBlockingColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 33438806068012252}
   - component: {fileID: 65726122069795632}
   - component: {fileID: 23023912932028162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 33647337291985380}
   - component: {fileID: 65448956664035024}
   - component: {fileID: 23071009845396196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

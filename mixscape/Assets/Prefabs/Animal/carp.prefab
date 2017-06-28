@@ -290,6 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4383450180304454}
   - component: {fileID: 95024189937506322}
+  - component: {fileID: 114536663352613288}
   m_Layer: 0
   m_Name: carp
   m_TagString: Untagged
@@ -639,8 +640,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1510149460375052}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.24463993, z: -0, w: 0.96961397}
+  m_LocalPosition: {x: -38.45, y: -3.87, z: 57.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4526581154629288}
@@ -921,7 +922,7 @@ Animator:
   m_GameObject: {fileID: 1510149460375052}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ea611b820be4f3b45b5796f4a126cf23, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0cd74407405f4a74b99f490f15dfc1a1, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -929,6 +930,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114536663352613288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510149460375052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264ecc8a6e7605047b7896fc8f066d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinCircleRadius: 2
+  MaxCircleRadius: 16
+  MinCircleRadiusRepickDelay: 2
+  MaxCircleRadiusRepickDelay: 8
+  CircleCentre: {fileID: 0}
+  SwimSpeed: 1
 --- !u!137 &137792791550622574
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

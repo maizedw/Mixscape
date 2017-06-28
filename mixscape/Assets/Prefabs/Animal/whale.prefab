@@ -49,7 +49,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4707714339261328}
-  - component: {fileID: 111041830946958944}
+  - component: {fileID: 111665907710140612}
+  - component: {fileID: 114796987461462034}
   m_Layer: 0
   m_Name: whale
   m_TagString: Untagged
@@ -575,7 +576,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1829165150758162}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.035, z: 0.993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4707714339261328}
@@ -615,8 +616,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943541068625758}
-  m_LocalRotation: {x: 0.491179, y: 0.50864697, z: 0.4912006, w: 0.5086684}
-  m_LocalPosition: {x: -0, y: 0.6794026, z: -0.85842586}
+  m_LocalRotation: {x: -0.49118873, y: -0.50865865, z: 0.49118873, w: 0.50865865}
+  m_LocalPosition: {x: -0, y: 0.645, z: 0.135}
   m_LocalScale: {x: 1.0000005, y: 1.0000007, z: 1.0000002}
   m_Children:
   - {fileID: 4040549360087236}
@@ -625,16 +626,16 @@ Transform:
   - {fileID: 4617765035352886}
   m_Father: {fileID: 4707714339261328}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 87.998}
 --- !u!4 &4707714339261328
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037195371021558}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.56, y: 2.65, z: -2.78}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.14930792, z: -0, w: 0.98879075}
+  m_LocalPosition: {x: -138.1, y: -12.2, z: 163.3}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4703729374613456}
   - {fileID: 4565792787726964}
@@ -766,7 +767,7 @@ Transform:
   m_Father: {fileID: 4908950429403828}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &111041830946958944
+--- !u!111 &111665907710140612
 Animation:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -785,6 +786,23 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &114796987461462034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037195371021558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264ecc8a6e7605047b7896fc8f066d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinCircleRadius: 65
+  MaxCircleRadius: 75
+  MinCircleRadiusRepickDelay: 6
+  MaxCircleRadiusRepickDelay: 20
+  CircleCentre: {fileID: 0}
+  SwimSpeed: 5
 --- !u!137 &137641251459191210
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
