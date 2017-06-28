@@ -420,7 +420,7 @@ Subshader
 			Blend SrcAlpha OneMinusSrcAlpha
 			ZTest LEqual
 			ZWrite Off
-			Cull Off
+			//Cull Off
 		
 			CGPROGRAM
 		
@@ -449,7 +449,7 @@ Subshader
 			Blend SrcAlpha OneMinusSrcAlpha
 			ZTest LEqual
 			ZWrite Off
-			Cull Off
+			//Cull Off
 		
 			CGPROGRAM
 		
@@ -478,7 +478,7 @@ Subshader
 			Blend SrcAlpha OneMinusSrcAlpha
 			ZTest LEqual
 			ZWrite Off
-			Cull Off
+			//Cull Off
 		
 			CGPROGRAM
 		
