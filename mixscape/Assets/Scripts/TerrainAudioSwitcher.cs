@@ -15,6 +15,7 @@ public class TerrainAudioSwitcher : MonoBehaviour
     public TerrainAudioTextureSwitch[] TextureSwitchMap;
     public AkSwitch StandingInWaterSwitch;
     public AkSwitch UnderwaterSwitch;
+    public bool DebugDisplayCurrentTexture;
 
     private Terrain terrain;
     private TerrainData terrainData;
@@ -89,9 +90,12 @@ public class TerrainAudioSwitcher : MonoBehaviour
 
     void OnGUI()
     {
-        if(terrainData.splatPrototypes.Length > 0 && _currTextureIndex >= 0 && _currTextureIndex < terrainData.splatPrototypes.Length)
+        if(DebugDisplayCurrentTexture)
         {
-            GUI.Box(new Rect(100, 100, 200, 25), "index: " + _currTextureIndex.ToString() + ", name: " + terrainData.splatPrototypes[_currTextureIndex].texture.name);
+            if(terrainData.splatPrototypes.Length > 0 && _currTextureIndex >= 0 && _currTextureIndex < terrainData.splatPrototypes.Length)
+            {
+                GUI.Box(new Rect(100, 100, 200, 25), "index: " + _currTextureIndex.ToString() + ", name: " + terrainData.splatPrototypes[_currTextureIndex].texture.name);
+            }
         }
     }
 
