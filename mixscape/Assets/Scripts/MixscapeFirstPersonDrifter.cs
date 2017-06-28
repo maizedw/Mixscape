@@ -1,6 +1,7 @@
 using UMA;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityStandardAssets.ImageEffects;
 
 public enum WaterState
 {
@@ -84,11 +85,14 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     private GameObject[] _waterObjects;
     private LTDescr footstepDistanceTween;
     private bool running;
+    private GlobalFog _globalFog;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         _camera = GetComponentInChildren<Camera>();
+
+        _globalFog = _camera.GetComponent<GlobalFog>();
         _waterObjects = GameObject.FindGameObjectsWithTag("Water");
         myTransform = transform;
         speed = walkSpeed;
