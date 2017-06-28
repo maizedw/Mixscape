@@ -10,12 +10,10 @@ public class HeadBob : MonoBehaviour
 	public float bobbingAmount = 0.05f;
 	public float  midpoint = 0.6f; 
 	
-    private CharacterController _characterController;
     private MixscapeFirstPersonDrifter _player;
 
     protected void Start()
     {
-        _characterController = GetComponentInParent<CharacterController>();
         _player = GetComponentInParent<MixscapeFirstPersonDrifter>();
     }
 

@@ -137,16 +137,50 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         if(EnableResizeControls)
         {
             float currScale = transform.localScale.y;
+            float newScale = currScale;
+            bool scaleChanged = false;
             if(Input.GetKey(KeyCode.Q))
             {
-                currScale = currScale - (currScale * Time.deltaTime);
+                newScale = currScale - (currScale * Time.deltaTime);
+                scaleChanged = true;
             }
             else if(Input.GetKey(KeyCode.E))
             {
-                currScale = currScale + (currScale * Time.deltaTime);
+                newScale = currScale + (currScale * Time.deltaTime);
+                scaleChanged = true;
             }
-            currScale = Mathf.Clamp(currScale, 0.1f, MaxScale);
-            transform.localScale = new Vector3(currScale, currScale, currScale);
+            if(scaleChanged)
+            {
+                newScale = Mathf.Clamp(newScale, 0.1f, MaxScale);
+                transform.localScale = new Vector3(newScale, newScale, newScale);
+                if(_globalFog != null)
+                {
+                    {
+                        float currValue = _globalFog.heightDensity;
+                        float baseValue = currValue / (1.0f - (currScale - 1.0f) * 0.05053f);
+                        float newValue = baseValue * (1.0f - (newScale - 1.0f) * 0.05053f);
+                        _globalFog.heightDensity = newValue;
+                    }
+
+                    {
+                        float currValue = _globalFog.startDistance;
+                        float baseValue = currValue / (1.0f + (currScale - 1.0f));
+                        float newValue = baseValue * (1.0f + (newScale - 1.0f));
+                        _globalFog.startDistance = newValue;
+                    }
+
+                    {
+                        float currValue = _globalFog.height;
+                        float baseValue = currValue + (Mathf.Max(0.0f, currScale - 1.0f) * 100.0f);
+                        float newValue = baseValue - (Mathf.Max(0.0f, newScale - 1.0f) * 100.0f);
+                        _globalFog.height = newValue;
+                    }
+
+
+                    // _globalFog.startDistance = _globalFog.startDistance * (newScaleRatio * 0.25f);
+                }
+            }
+
         }
 
         if(grounded == false)
