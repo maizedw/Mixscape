@@ -22,6 +22,14 @@
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>
+				<SoundBank Name="Underwater" ID="{D5D0B617-A008-4CC6-B067-82928C11E8DE}">
+					<ObjectInclusionList>
+						<ObjectRef Name="ExitUnderwater" ID="{DA4629E2-A3DB-4249-9B3A-AFFF6B744458}" WorkUnitID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="EnterUnderwater" ID="{373456FD-65EF-473B-B505-F7449426A83A}" WorkUnitID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}" Filter="7" Origin="Manual"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
 			</ChildrenList>
 		</WorkUnit>
 	</SoundBanks>

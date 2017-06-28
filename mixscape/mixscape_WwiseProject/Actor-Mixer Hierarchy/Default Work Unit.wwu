@@ -228,7 +228,7 @@
 								</Sound>
 							</ChildrenList>
 						</RandomSequenceContainer>
-						<RandomSequenceContainer Name="GrassFootsteps" ID="{0A9532D7-F32D-49A8-8BD4-8EB5B3B3511A}" ShortID="456525067">
+						<RandomSequenceContainer Name="WaterFootsteps" ID="{0A9532D7-F32D-49A8-8BD4-8EB5B3B3511A}" ShortID="456525067">
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
@@ -238,147 +238,163 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<Sound Name="PERC 01" ID="{5ED4C51E-6C71-4C3A-84F7-2764FC1B568A}" ShortID="568614671" Type="SoundFX">
-									<Comment>Audiokinetic Inc. All rights reserved.
-Content provided by Vincent Gagnon
-© 2014 Vincent Gagnon</Comment>
+								<Sound Name="269010__lwdickens__water-splash-3" ID="{71BCE515-E7C8-4CDC-B909-302C76ECBD0F}" ShortID="974100302" Type="SoundFX">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
-										</Reference>
-										<Reference Name="Effect0">
-											<Custom CreatedFrom="{84DA2ACF-4911-4BA7-987A-C75151AFFD7C}">
-												<Effect Name="Wwise Parametric EQ (Custom)" ID="{29445958-3B1C-4AEA-BDD1-6BE3FDF0C4A0}" ShortID="917880623" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
-													<PropertyList>
-														<Property Name="FilterTypeBand1" Type="int32" Value="0"/>
-														<Property Name="FrequencyBand1" Type="Real32" Value="500">
-															<RTPCList>
-																<RTPC Name="" ID="{4AE2A961-2DBB-4A51-AAED-EF69C31DF502}" ShortID="353290">
-																	<ReferenceList>
-																		<Reference Name="ControlInput">
-																			<Custom CreatedFrom="{DE208A0A-9F1B-49C1-AA21-24506D130619}">
-																				<ModulatorEnvelope Name="Modulator Envelope (Custom)" ID="{309EC168-4986-49B3-A341-8BA050357408}" ShortID="880554767">
-																					<PropertyList>
-																						<Property Name="EnvelopeAttackTime" Type="Real64" Value="0.137"/>
-																						<Property Name="EnvelopeDecayTime" Type="Real64" Value="0.516"/>
-																						<Property Name="EnvelopeReleaseTime" Type="Real64" Value="0.705"/>
-																						<Property Name="EnvelopeSustainLevel" Type="Real64" Value="78.4"/>
-																					</PropertyList>
-																				</ModulatorEnvelope>
-																			</Custom>
-																		</Reference>
-																	</ReferenceList>
-																	<Curve Name="" ID="{BC2FC6B6-4234-4B36-BA61-D08010977C7F}">
-																		<PropertyList>
-																			<Property Name="Flags" Type="int32" Value="5"/>
-																		</PropertyList>
-																		<PointList>
-																			<Point>
-																				<XPos>0</XPos>
-																				<YPos>24.56533</YPos>
-																				<Flags>21</Flags>
-																			</Point>
-																			<Point>
-																				<XPos>1</XPos>
-																				<YPos>4320.00121</YPos>
-																				<Flags>53</Flags>
-																			</Point>
-																		</PointList>
-																	</Curve>
-																</RTPC>
-															</RTPCList>
-														</Property>
-														<Property Name="OnOffBand2" Type="bool" Value="False"/>
-														<Property Name="OnOffBand3" Type="bool" Value="False"/>
-													</PropertyList>
-												</Effect>
-											</Custom>
 										</Reference>
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<SourcePlugin Name="PERC 01" ID="{8AA98B5C-33E8-469A-A8FA-9F77A5943A80}" ShortID="328078722" PluginName="Wwise Synth One" CompanyID="0" PluginID="148">
-											<Comment>Audiokinetic Inc. All rights reserved.
-Content provided by Vincent Gagnon
-© 2014 Vincent Gagnon</Comment>
-											<PropertyList>
-												<Property Name="BaseFrequency" Type="Real32" Value="250"/>
-												<Property Name="NoiseLevel" Type="Real32" Value="-4"/>
-												<Property Name="Osc1Level" Type="Real32" Value="-7.5"/>
-												<Property Name="Osc1Pwm" Type="Real32" Value="35.9"/>
-												<Property Name="Osc2Level" Type="Real32" Value="-96"/>
-												<Property Name="Osc2Transpose" Type="int32" Value="700"/>
-												<Property Name="OutputLevel" Type="Real32" Value="-7">
-													<RTPCList>
-														<RTPC Name="" ID="{C4C21683-853D-4E08-926F-A5245F0819C4}" ShortID="409750837">
-															<ReferenceList>
-																<Reference Name="ControlInput">
-																	<Custom>
-																		<ModulatorEnvelope Name="Modulator Envelope (Custom)" ID="{9DE7E4AD-95FE-454F-9E2C-6F8B132285F0}" ShortID="400517537">
-																			<PropertyList>
-																				<Property Name="EnvelopeAttackTime" Type="Real64" Value="0"/>
-																				<Property Name="EnvelopeAutoRelease" Type="bool" Value="True"/>
-																				<Property Name="EnvelopeDecayTime" Type="Real64" Value="0.042"/>
-																				<Property Name="EnvelopeReleaseTime" Type="Real64" Value="0.068"/>
-																				<Property Name="EnvelopeSustainLevel" Type="Real64" Value="0"/>
-																			</PropertyList>
-																		</ModulatorEnvelope>
-																	</Custom>
-																</Reference>
-															</ReferenceList>
-															<Curve Name="" ID="{E7464B4A-0089-447A-8A95-B9842F66340D}">
-																<PropertyList>
-																	<Property Name="Flags" Type="int32" Value="3"/>
-																</PropertyList>
-																<PointList>
-																	<Point>
-																		<XPos>0</XPos>
-																		<YPos>5.9148</YPos>
-																		<Flags>21</Flags>
-																	</Point>
-																	<Point>
-																		<XPos>1</XPos>
-																		<YPos>5.78896</YPos>
-																		<Flags>53</Flags>
-																	</Point>
-																</PointList>
-															</Curve>
-														</RTPC>
-														<RTPC Name="" ID="{486768A1-2E2D-4102-B872-73559DD6512B}" ShortID="50697337">
-															<ReferenceList>
-																<Reference Name="ControlInput">
-																	<ObjectRef Name="MIDI note velocity" ID="{B618CC3D-04FA-4149-A36B-37B8A1F2B642}"/>
-																</Reference>
-															</ReferenceList>
-															<Curve Name="" ID="{BE60EF24-F3C3-43AE-B19C-E3AD3496F779}">
-																<PropertyList>
-																	<Property Name="Flags" Type="int32" Value="3"/>
-																</PropertyList>
-																<PointList>
-																	<Point>
-																		<XPos>0</XPos>
-																		<YPos>-20</YPos>
-																		<Flags>5</Flags>
-																	</Point>
-																	<Point>
-																		<XPos>127</XPos>
-																		<YPos>0</YPos>
-																		<Flags>37</Flags>
-																	</Point>
-																</PointList>
-															</Curve>
-														</RTPC>
-													</RTPCList>
-												</Property>
-												<Property Name="OverSampling" Type="bool" Value="False"/>
-											</PropertyList>
+										<AudioFileSource Name="269010__lwdickens__water-splash-3" ID="{14DBF09C-4CA9-4924-BB39-5B9879453468}" ShortID="697224158">
 											<Language>SFX</Language>
-										</SourcePlugin>
+											<AudioFile>269010__lwdickens__water-splash-3.wav</AudioFile>
+										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="PERC 01" ID="{8AA98B5C-33E8-469A-A8FA-9F77A5943A80}" Platform="Linked"/>
+										<ActiveSource Name="269010__lwdickens__water-splash-3" ID="{14DBF09C-4CA9-4924-BB39-5B9879453468}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="UnderwaterFootsteps" ID="{0371F616-9DBA-4009-898A-7913E3149FED}" ShortID="254459995">
+							<PropertyList>
+								<Property Name="OverrideEffect" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="190085__tran5ient__splash9" ID="{7C1F366B-3609-42EA-A053-CDF3DBFB9284}" ShortID="495096745" Type="SoundFX">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="190085__tran5ient__splash9" ID="{9D2E8AB3-80C5-405D-A0BB-15BECFA0E03F}" ShortID="714319681">
+											<Language>SFX</Language>
+											<AudioFile>190085__tran5ient__splash9.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="190085__tran5ient__splash9" ID="{9D2E8AB3-80C5-405D-A0BB-15BECFA0E03F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="GrassFootsteps" ID="{13E4A98A-0863-4C59-98F4-B8CC0AA93077}" ShortID="583282464">
+							<PropertyList>
+								<Property Name="OverrideEffect" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
+								</Reference>
+								<Reference Name="Effect0" CompanyID="4095" PluginID="65535" PluginType="15">
+									<ObjectRef Name="Noise_Gate_Fast_Attack" ID="{747A6B61-E953-474C-8227-672C884DA616}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Footstep01" ID="{32295D29-2567-400F-A286-08E6075CAD1F}" ShortID="25311618" Type="SoundFX">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Footstep01" ID="{B48E33D3-8FEE-4B5E-8067-B7A32E0F5A67}" ShortID="216997281">
+											<Language>SFX</Language>
+											<AudioFile>Footstep01.wav</AudioFile>
+											<ConvertedFileIDList>
+												<File ID="488214762"/>
+											</ConvertedFileIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Footstep01" ID="{B48E33D3-8FEE-4B5E-8067-B7A32E0F5A67}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Footstep02" ID="{4F129A32-0A3F-4F1C-9E44-D9B6FE3A7699}" ShortID="594938832" Type="SoundFX">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Footstep02" ID="{CD08AE32-E0A4-4972-BC40-B93A1F10F338}" ShortID="424718607">
+											<Language>SFX</Language>
+											<AudioFile>Footstep02.wav</AudioFile>
+											<ConvertedFileIDList>
+												<File ID="611297062"/>
+											</ConvertedFileIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Footstep02" ID="{CD08AE32-E0A4-4972-BC40-B93A1F10F338}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Footstep03" ID="{9693D7EB-D960-46F3-8704-2880DB528F60}" ShortID="205632409" Type="SoundFX">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Footstep03" ID="{1828B2D2-58EC-4150-890C-58DDC3C9EE53}" ShortID="460169693">
+											<Language>SFX</Language>
+											<AudioFile>Footstep03.wav</AudioFile>
+											<ConvertedFileIDList>
+												<File ID="105681997"/>
+											</ConvertedFileIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Footstep03" ID="{1828B2D2-58EC-4150-890C-58DDC3C9EE53}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Footstep04" ID="{18AF0539-7193-4AD7-8324-49860E40C0D5}" ShortID="333172955" Type="SoundFX">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{427C21A7-22DB-4F46-988A-5CA082EB2F25}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{5654317E-C7A5-40DD-B22C-0EBA3BC60611}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Footstep04" ID="{3CF02013-4FC4-4475-85DD-90B4392096FD}" ShortID="313548971">
+											<Language>SFX</Language>
+											<AudioFile>Footstep04.wav</AudioFile>
+											<ConvertedFileIDList>
+												<File ID="523273653"/>
+											</ConvertedFileIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Footstep04" ID="{3CF02013-4FC4-4475-85DD-90B4392096FD}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
@@ -389,23 +405,41 @@ Content provided by Vincent Gagnon
 						<DefaultSwitchRef Name="Dirt" ID="{BD1D2F8A-9404-4F03-A5E0-D039B2879AF1}"/>
 						<GroupingBehaviorList>
 							<GroupingBehavior>
+								<ItemRef Name="UnderwaterFootsteps" ID="{0371F616-9DBA-4009-898A-7913E3149FED}"/>
+							</GroupingBehavior>
+							<GroupingBehavior>
 								<ItemRef Name="DirtFootsteps" ID="{793E352A-1AF3-4307-99A5-D4108599B250}"/>
 							</GroupingBehavior>
 							<GroupingBehavior>
-								<ItemRef Name="GrassFootsteps" ID="{0A9532D7-F32D-49A8-8BD4-8EB5B3B3511A}"/>
+								<ItemRef Name="GrassFootsteps" ID="{13E4A98A-0863-4C59-98F4-B8CC0AA93077}"/>
+							</GroupingBehavior>
+							<GroupingBehavior>
+								<ItemRef Name="WaterFootsteps" ID="{0A9532D7-F32D-49A8-8BD4-8EB5B3B3511A}"/>
 							</GroupingBehavior>
 						</GroupingBehaviorList>
 						<GroupingList>
 							<Grouping>
+								<SwitchRef Name="StandingInWater" ID="{4F946547-1132-485D-958C-AFDE84EC53BE}"/>
+								<ItemList>
+									<ItemRef Name="WaterFootsteps" ID="{0A9532D7-F32D-49A8-8BD4-8EB5B3B3511A}"/>
+								</ItemList>
+							</Grouping>
+							<Grouping>
 								<SwitchRef Name="Grass" ID="{6B348065-BE3D-434D-A1B2-6F48B17B1687}"/>
 								<ItemList>
-									<ItemRef Name="GrassFootsteps" ID="{0A9532D7-F32D-49A8-8BD4-8EB5B3B3511A}"/>
+									<ItemRef Name="GrassFootsteps" ID="{13E4A98A-0863-4C59-98F4-B8CC0AA93077}"/>
 								</ItemList>
 							</Grouping>
 							<Grouping>
 								<SwitchRef Name="Dirt" ID="{BD1D2F8A-9404-4F03-A5E0-D039B2879AF1}"/>
 								<ItemList>
 									<ItemRef Name="DirtFootsteps" ID="{793E352A-1AF3-4307-99A5-D4108599B250}"/>
+								</ItemList>
+							</Grouping>
+							<Grouping>
+								<SwitchRef Name="Underwater" ID="{35457DD7-9A76-4F8B-941D-D486BB275CC2}"/>
+								<ItemList>
+									<ItemRef Name="UnderwaterFootsteps" ID="{0371F616-9DBA-4009-898A-7913E3149FED}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>

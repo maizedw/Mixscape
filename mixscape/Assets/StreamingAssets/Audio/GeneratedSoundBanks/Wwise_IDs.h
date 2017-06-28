@@ -13,6 +13,8 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID ENTERUNDERWATER = 4185698490U;
+        static const AkUniqueID EXITUNDERWATER = 787417374U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
         static const AkUniqueID GREETING = 1540195120U;
         static const AkUniqueID JUMP = 3833651337U;
@@ -58,6 +60,7 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID UNDERWATER = 2213237662U;
         static const AkUniqueID VOICEOVER = 4041657371U;
     } // namespace BANKS
 

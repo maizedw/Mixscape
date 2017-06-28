@@ -52,6 +52,8 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     public AkEvent JumpEvent;
     public float MinAirborneTimeToLand = 0.4f;
     public AkEvent LandEvent;
+    public AkEvent EnterUnderwaterEvent;
+    public AkEvent ExitUnderwaterEvent;
     public Collider PrimaryCollider;
     public bool EnableResizeControls = true;
     public float MaxScale = 20.0f;
@@ -165,6 +167,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             }
         }
 
+        bool wasUnderWater = WaterState == WaterState.Underwater;
         if(WaterState != WaterState.None)
         {
             WaterState = WaterState.StandingInWater;
@@ -182,6 +185,16 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
                         break;
                 }
             }
+        }
+        if(!wasUnderWater && WaterState == WaterState.Underwater)
+        {
+            if(EnterUnderwaterEvent != null)
+                EnterUnderwaterEvent.HandleEvent(null);
+        }
+        if(wasUnderWater && WaterState != WaterState.Underwater)
+        {
+            if(ExitUnderwaterEvent != null)
+                ExitUnderwaterEvent.HandleEvent(null);
         }
 
         AkSoundEngine.SetRTPCValue("player_scale", transform.lossyScale.y);

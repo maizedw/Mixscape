@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 114465216847026638}
   - component: {fileID: 114247241507297656}
   - component: {fileID: 114720898784520316}
+  - component: {fileID: 114575197442219942}
+  - component: {fileID: 114940699739903622}
   - component: {fileID: 114547033003498156}
   - component: {fileID: 114659200708053110}
   - component: {fileID: 114640879111929698}
@@ -336,6 +338,8 @@ MonoBehaviour:
   JumpEvent: {fileID: 114247241507297656}
   MinAirborneTimeToLand: 0.4
   LandEvent: {fileID: 114720898784520316}
+  EnterUnderwaterEvent: {fileID: 114575197442219942}
+  ExitUnderwaterEvent: {fileID: 114940699739903622}
   PrimaryCollider: {fileID: 14300000}
   EnableResizeControls: 1
   MaxScale: 20
@@ -426,6 +430,28 @@ MonoBehaviour:
   valueGuid: d77d4535769a8b4f941dd486bb275cc2
   groupID: -651599283
   valueID: -2081729634
+--- !u!114 &114575197442219942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa37feb1f548bb447b6175a49cfff168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  valueGuid: fd563437ef653b47b505f7449426a83a
+  eventID: -109268806
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
 --- !u!114 &114640879111929698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,6 +501,28 @@ MonoBehaviour:
   useOtherObject: 0
   valueGuid: a1ce79238a65ac479f475508ed01b752
   eventID: 674522502
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114940699739903622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa37feb1f548bb447b6175a49cfff168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  valueGuid: e22946dadba349429b3aafff6b744458
+  eventID: 787417374
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0

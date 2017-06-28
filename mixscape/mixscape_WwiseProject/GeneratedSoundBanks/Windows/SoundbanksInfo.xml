@@ -16,6 +16,25 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
+		<SoundBank Id="2213237662" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Underwater</ObjectPath>
+			<ShortName>Underwater</ShortName>
+			<Path>Underwater.bnk</Path>
+			<IncludedEvents>
+				<Event Id="4185698490" Name="EnterUnderwater" ObjectPath="\Events\Default Work Unit\EnterUnderwater"/>
+				<Event Id="787417374" Name="ExitUnderwater" ObjectPath="\Events\Default Work Unit\ExitUnderwater"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="697224158" Language="SFX">
+					<ShortName>269010__lwdickens__water-splash-3.wav</ShortName>
+					<Path>SFX\269010__lwdickens__water-splash-3_9E69E797.wem</Path>
+				</File>
+				<File Id="714319681" Language="SFX">
+					<ShortName>190085__tran5ient__splash9.wav</ShortName>
+					<Path>SFX\190085__tran5ient__splash9_9E69E797.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
 		<SoundBank Id="2385628198" Language="SFX">
 			<ObjectPath>\SoundBanks\Default Work Unit\Footsteps</ObjectPath>
 			<ShortName>Footsteps</ShortName>

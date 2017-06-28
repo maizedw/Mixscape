@@ -16,9 +16,29 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}'
-    m_lastTimePsrt1: 1343215140
-    m_lastTimePart2: -1999325026
+    m_lastTimePsrt1: -1280493601
+    m_lastTimePart2: -1999323677
     List:
+    - Name: EnterUnderwater
+      Path: Default Work Unit\EnterUnderwater
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: EnterUnderwater
+        ObjectType: 3
+      ID: -109268806
+      Guid: fd563437ef653b47b505f7449426a83a
+      maxAttenuation: 0
+    - Name: ExitUnderwater
+      Path: Default Work Unit\ExitUnderwater
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: ExitUnderwater
+        ObjectType: 3
+      ID: 787417374
+      Guid: e22946dadba349429b3aafff6b744458
+      maxAttenuation: 0
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
       PathAndIcons:
@@ -143,8 +163,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E0A930E7-5E15-4E01-B06D-C6C7DACCD5BF}'
-    m_lastTimePsrt1: -1299364033
-    m_lastTimePart2: -1999323692
+    m_lastTimePsrt1: -1280563801
+    m_lastTimePart2: -1999323677
     List:
     - Name: Footsteps
       Path: Default Work Unit\Footsteps
@@ -155,6 +175,15 @@ MonoBehaviour:
         ObjectType: 7
       ID: -1909339098
       Guid: 6017f35f4be5624aaec217e66430d0fc
+    - Name: Underwater
+      Path: Default Work Unit\Underwater
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Underwater
+        ObjectType: 7
+      ID: -2081729634
+      Guid: 17b6d0d508a0c64cb06782928c11e8de
     - Name: VoiceOver
       Path: Default Work Unit\VoiceOver
       PathAndIcons:
@@ -166,9 +195,8 @@ MonoBehaviour:
       Guid: 48ccc83017ea0e40a063b8d33addea4f
   ExpandedItems:
   - /mixscape_WwiseProject
-  - /mixscape_WwiseProject/Switches
-  - /mixscape_WwiseProject/Switches/Default Work Unit
-  - /mixscape_WwiseProject/Switches/Default Work Unit/TerrainSwitchGroup
+  - /mixscape_WwiseProject/Events
+  - /mixscape_WwiseProject/Events/Default Work Unit
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

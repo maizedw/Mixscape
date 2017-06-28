@@ -80,6 +80,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="EnterUnderwater" ID="{373456FD-65EF-473B-B505-F7449426A83A}">
+					<ChildrenList>
+						<Action Name="Play" ID="{A44F13B2-EE27-44A4-9BA4-2CB58A1FE74A}" ShortID="58394565" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{03533ABF-FD6E-4F54-95F7-2EC7B3A82AC6}" Global="false">
+									<ObjectRef Name="190085__tran5ient__splash9" ID="{7C1F366B-3609-42EA-A053-CDF3DBFB9284}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ExitUnderwater" ID="{DA4629E2-A3DB-4249-9B3A-AFFF6B744458}">
+					<ChildrenList>
+						<Action Name="Play" ID="{E7856BC1-8B9B-4695-ACFA-28CD371C7D97}" ShortID="127523783" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{E0B4FE93-4B71-4C93-9A95-5B9BB6EB0FC9}" Global="false">
+									<ObjectRef Name="269010__lwdickens__water-splash-3" ID="{71BCE515-E7C8-4CDC-B909-302C76ECBD0F}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
