@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UMA;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -55,6 +56,9 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     public AkEvent LandEvent;
     public AkEvent EnterUnderwaterEvent;
     public AkEvent ExitUnderwaterEvent;
+    public AkEvent EnterCaveEvent;
+    public AkEvent ExitCaveEvent;
+    public bool PlayEnterEventsOnLoad;
     public Collider PrimaryCollider;
     public bool EnableResizeControls = true;
     public float MaxScale = 20.0f;
@@ -62,6 +66,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     public float UnderwaterSpeedMultiplier = 0.333f;
 
     public WaterState WaterState { get; private set; }
+    public bool InCave { get; private set; }
 
     public float FootstepPercentage { get { return _footstepMoveAmount / _currFootstepDistance; } }
 
@@ -89,6 +94,9 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     private bool _globalFogDefaultExcludeFarPixels = true;
     private Color _globalFogDefaultColor = Color.gray;
     public Color GlobalFogUnderwaterColor = Color.blue;
+    public bool _firstFrameEnded = false;
+    private List<Collider> _currentWaterCollidingList = new List<Collider>();
+    private List<Collider> _currentCaveCollidingList = new List<Collider>();
 
     void Start()
     {
@@ -236,8 +244,11 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         }
         if(!wasUnderWater && WaterState == WaterState.Underwater)
         {
-            if(EnterUnderwaterEvent != null)
-                EnterUnderwaterEvent.HandleEvent(null);
+            if(_firstFrameEnded || PlayEnterEventsOnLoad)
+            {
+                if(EnterUnderwaterEvent != null)
+                    EnterUnderwaterEvent.HandleEvent(null);
+            }
 
             if (_globalFog != null)
             {
@@ -258,6 +269,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         }
 
         AkSoundEngine.SetRTPCValue("player_scale", transform.lossyScale.y);
+        AkSoundEngine.SetRTPCValue("player_speed", controller.velocity.magnitude);
     }
 
     private void LateUpdate()
@@ -270,6 +282,8 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             if(meshRenderer.receiveShadows)
                 meshRenderer.receiveShadows = false;
         }
+
+        _firstFrameEnded = true;
     }
 
     private bool ProcessInteract(RaycastHit[] raycastHits)
@@ -448,7 +462,25 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     {
         if(other.CompareTag("Water"))
         {
-            WaterState = WaterState.StandingInWater;
+            _currentWaterCollidingList.Add(other);
+            if(WaterState == WaterState.None)
+            {
+                WaterState = WaterState.StandingInWater;
+            }
+        }
+
+        if(other.CompareTag("Cave"))
+        {
+            _currentCaveCollidingList.Add(other);
+            if(!InCave)
+            {
+                InCave = true;
+                if(_firstFrameEnded || PlayEnterEventsOnLoad)
+                {
+                    if(EnterCaveEvent != null)
+                        EnterCaveEvent.HandleEvent(null);
+                }
+            }
         }
     }
 
@@ -456,7 +488,24 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     {
         if(other.CompareTag("Water"))
         {
-            WaterState = WaterState.None;
+            _currentWaterCollidingList.Remove(other);
+            if(_currentWaterCollidingList.Count == 0)
+            {
+                WaterState = WaterState.None;
+            }
+        }
+
+        if(other.CompareTag("Cave"))
+        {
+            _currentCaveCollidingList.Remove(other);
+            if(_currentCaveCollidingList.Count == 0 && InCave)
+            {
+                InCave = false;
+                if(ExitCaveEvent != null)
+                {
+                    ExitCaveEvent.HandleEvent(null);
+                }
+            }
         }
     }
 }
