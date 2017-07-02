@@ -499,6 +499,9 @@
 										<Property Name="PropertyName" Type="string" Value="3DPositionSource"/>
 									</PropertyList>
 								</SearchCriteria>
+								<SearchCriteria Name="Game ParameterRTPCGeneral Usage" ID="{D33FBF6F-4879-4C72-B9C1-D93F644DC8D7}" SearchOperationID="{F4CD9A3B-1BFD-4796-9548-940A0692406C}"/>
+								<SearchCriteria Name="Game ParameterRTPCProperty" ID="{219470F9-7B63-4A83-B12C-D93659C7AE03}" SearchOperationID="{1290ABF6-F849-498D-ADE5-84ED57799CAF}"/>
+								<SearchCriteria Name="Game ParameterRTPCGame Parameter Usage" ID="{01385162-E55A-41CF-B4EA-3F9597F29938}" SearchOperationID="{F6468FFB-A923-4731-B202-2FD1FDB7FCFF}"/>
 							</ChildrenList>
 						</Query>
 						<Query Name="Objects using Effect" ID="{9ABAF5B6-3430-42DB-B78C-058CAFD5A3BC}">

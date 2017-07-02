@@ -13,6 +13,10 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID CHANGEENV_CAVE = 884831434U;
+        static const AkUniqueID CHANGEENV_FOREST = 3195589498U;
+        static const AkUniqueID CHANGEENV_OUTSIDE = 928611434U;
+        static const AkUniqueID CHANGEENV_UNDERWATER = 3107706658U;
         static const AkUniqueID ENTERUNDERWATER = 4185698490U;
         static const AkUniqueID EXITUNDERWATER = 787417374U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
@@ -44,6 +48,7 @@ namespace AK
     namespace GAME_PARAMETERS
     {
         static const AkUniqueID PLAYER_SCALE = 2861796105U;
+        static const AkUniqueID PLAYER_SPEED = 1062779386U;
         static const AkUniqueID SS_AIR_FEAR = 1351367891U;
         static const AkUniqueID SS_AIR_FREEFALL = 3002758120U;
         static const AkUniqueID SS_AIR_FURY = 1029930033U;
@@ -59,7 +64,7 @@ namespace AK
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
-        static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID MAIN = 3161908922U;
         static const AkUniqueID UNDERWATER = 2213237662U;
         static const AkUniqueID VOICEOVER = 4041657371U;
     } // namespace BANKS
@@ -69,6 +74,14 @@ namespace AK
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MASTER_SECONDARY_BUS = 805203703U;
     } // namespace BUSSES
+
+    namespace AUX_BUSSES
+    {
+        static const AkUniqueID CAVE = 4122393694U;
+        static const AkUniqueID FOREST = 491961918U;
+        static const AkUniqueID OUTSIDE = 438105790U;
+        static const AkUniqueID UNDERWATER = 2213237662U;
+    } // namespace AUX_BUSSES
 
 }// namespace AK
 

@@ -35,11 +35,15 @@
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
-		<SoundBank Id="2385628198" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\Footsteps</ObjectPath>
-			<ShortName>Footsteps</ShortName>
-			<Path>Footsteps.bnk</Path>
+		<SoundBank Id="3161908922" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
 			<IncludedEvents>
+				<Event Id="884831434" Name="ChangeEnv_Cave" ObjectPath="\Events\Default Work Unit\ChangeEnv_Cave" MaxAttenuation="0.000000"/>
+				<Event Id="3195589498" Name="ChangeEnv_Forest" ObjectPath="\Events\Default Work Unit\ChangeEnv_Forest" MaxAttenuation="0.000000"/>
+				<Event Id="928611434" Name="ChangeEnv_Outside" ObjectPath="\Events\Default Work Unit\ChangeEnv_Outside" MaxAttenuation="0.000000"/>
+				<Event Id="3107706658" Name="ChangeEnv_Underwater" ObjectPath="\Events\Default Work Unit\ChangeEnv_Underwater" MaxAttenuation="0.000000"/>
 				<Event Id="2385628198" Name="Footsteps" ObjectPath="\Events\Default Work Unit\Footsteps"/>
 				<Event Id="3833651337" Name="Jump" ObjectPath="\Events\Default Work Unit\Jump"/>
 				<Event Id="674522502" Name="Land" ObjectPath="\Events\Default Work Unit\Land"/>

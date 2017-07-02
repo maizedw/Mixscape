@@ -102,6 +102,10 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="ChangeEnv_Outside" ID="{DC6DBC5D-F03D-4D54-8D48-E0A86141D3DC}"/>
+				<Event Name="ChangeEnv_Underwater" ID="{81F4EFA7-F626-485E-8B48-ADA12A616CD1}"/>
+				<Event Name="ChangeEnv_Forest" ID="{16109572-0C6D-448B-89BF-E5F632105206}"/>
+				<Event Name="ChangeEnv_Cave" ID="{64D06316-658E-4793-8A36-C61479C4C4D8}"/>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

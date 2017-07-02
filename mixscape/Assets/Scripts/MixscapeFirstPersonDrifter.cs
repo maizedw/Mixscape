@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UMA;
 using UnityEngine;
@@ -88,6 +89,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     private float _airborneTimer = 0.0f;
     private Camera _camera;
     private GameObject[] _waterObjects;
+    private AkEnvironment[] _akEnvironmentObjects;
     private LTDescr footstepDistanceTween;
     private bool running;
     private GlobalFog _globalFog;
@@ -97,6 +99,8 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     public bool _firstFrameEnded = false;
     private List<Collider> _currentWaterCollidingList = new List<Collider>();
     private List<Collider> _currentCaveCollidingList = new List<Collider>();
+    private AkEnvironment _currEnvironment;
+    private List<AkEnvironment> _currentEnvironments = new List<AkEnvironment>();
 
     void Start()
     {
@@ -112,6 +116,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
         _globalFogDefaultColor = RenderSettings.fogColor;
 
         _waterObjects = GameObject.FindGameObjectsWithTag("Water");
+        _akEnvironmentObjects = FindObjectsOfType<AkEnvironment>();
         myTransform = transform;
         speed = walkSpeed;
         rayDistance = controller.height * .5f + controller.radius;
@@ -231,7 +236,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             {
                 foreach(var waterCollider in waterObject.GetComponents<Collider>())
                 {
-                    if(waterCollider.bounds.Contains(_camera.transform.position))
+                    if(waterCollider.ContainsRaycast(_camera.transform.position))
                     {
                         WaterState = WaterState.Underwater;
                         break;
@@ -268,8 +273,62 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
             }
         }
 
+        UpdateEnvironmentList(_firstFrameEnded || PlayEnterEventsOnLoad);
+
         AkSoundEngine.SetRTPCValue("player_scale", transform.lossyScale.y);
         AkSoundEngine.SetRTPCValue("player_speed", controller.velocity.magnitude);
+    }
+
+    private void UpdateEnvironmentList(bool playEvent = true)
+    {
+        foreach(AkEnvironment akEnvironment in _akEnvironmentObjects)
+        {
+            bool shouldRemove = _currentEnvironments.Contains(akEnvironment);
+            foreach(var environmentCollider in akEnvironment.GetComponents<Collider>())
+            {
+                if(environmentCollider.ContainsRaycast(_camera.transform.position))
+                {
+                    if(_currentEnvironments.Contains(akEnvironment) == false)
+                    {
+                        bool added = false;
+                        for(int i = 0; i < _currentEnvironments.Count; i++)
+                        {
+                            AkEnvironment env = _currentEnvironments[i];
+                            if(env.priority <= akEnvironment.priority || env.isDefault)
+                            {
+                                _currentEnvironments.Insert(i, akEnvironment);
+                                added = true;
+                                break;
+                            }
+                        }
+                        if(!added)
+                        {
+                            _currentEnvironments.Add(akEnvironment);
+                        }
+                    }
+                    shouldRemove = false;
+                    break;
+                }
+            }
+
+            if(shouldRemove)
+            {
+                _currentEnvironments.Remove(akEnvironment);
+            }
+        }
+
+        AkEnvironment newEnvironment = _currentEnvironments.Count > 0 ? _currentEnvironments[0] : null;
+
+        if(newEnvironment != null && newEnvironment != _currEnvironment && playEvent)
+        {
+            Debug.LogFormat("Change environment to: {0}", newEnvironment.gameObject.name);
+            ChangeEnvironmentEvent changeEnvironmentEvent = newEnvironment.GetComponent<ChangeEnvironmentEvent>();
+            if(changeEnvironmentEvent != null && changeEnvironmentEvent.eventID != 0)
+            {
+                AkSoundEngine.PostEvent((uint)changeEnvironmentEvent.eventID, gameObject);
+            }
+        }
+        _currEnvironment = newEnvironment;
     }
 
     private void LateUpdate()

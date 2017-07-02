@@ -16,9 +16,49 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}'
-    m_lastTimePsrt1: -1280493601
-    m_lastTimePart2: -1999323677
+    m_lastTimePsrt1: 464371701
+    m_lastTimePart2: -1999322864
     List:
+    - Name: ChangeEnv_Cave
+      Path: Default Work Unit\ChangeEnv_Cave
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: ChangeEnv_Cave
+        ObjectType: 3
+      ID: 884831434
+      Guid: 1663d0648e6593478a36c61479c4c4d8
+      maxAttenuation: 0
+    - Name: ChangeEnv_Forest
+      Path: Default Work Unit\ChangeEnv_Forest
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: ChangeEnv_Forest
+        ObjectType: 3
+      ID: -1099377798
+      Guid: 729510166d0c8b4489bfe5f632105206
+      maxAttenuation: 0
+    - Name: ChangeEnv_Outside
+      Path: Default Work Unit\ChangeEnv_Outside
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: ChangeEnv_Outside
+        ObjectType: 3
+      ID: 928611434
+      Guid: 5dbc6ddc3df0544d8d48e0a86141d3dc
+      maxAttenuation: 0
+    - Name: ChangeEnv_Underwater
+      Path: Default Work Unit\ChangeEnv_Underwater
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: ChangeEnv_Underwater
+        ObjectType: 3
+      ID: -1187260638
+      Guid: a7eff48126f65e488b48ada12a616cd1
+      maxAttenuation: 0
     - Name: EnterUnderwater
       Path: Default Work Unit\EnterUnderwater
       PathAndIcons:
@@ -113,9 +153,53 @@ MonoBehaviour:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{5654317E-C7A5-40DD-B22C-0EBA3BC60611}'
-    m_lastTimePsrt1: -887572053
-    m_lastTimePart2: -1999325305
-    List: []
+    m_lastTimePsrt1: -1624507458
+    m_lastTimePart2: -1999322889
+    List:
+    - Name: Cave
+      Path: Default Work Unit\Master Audio Bus\Cave
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      - ElementName: Cave
+        ObjectType: 1
+      ID: -172573602
+      Guid: d8a17ba1fa6bce439db758225a524138
+    - Name: Forest
+      Path: Default Work Unit\Master Audio Bus\Forest
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      - ElementName: Forest
+        ObjectType: 1
+      ID: 491961918
+      Guid: ef929c4e077bcf4d80c705550d7485cd
+    - Name: Outside
+      Path: Default Work Unit\Master Audio Bus\Outside
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      - ElementName: Outside
+        ObjectType: 1
+      ID: 438105790
+      Guid: 0346cdc4d23b974b9e5f3832f5b07b05
+    - Name: Underwater
+      Path: Default Work Unit\Master Audio Bus\Underwater
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      - ElementName: Underwater
+        ObjectType: 1
+      ID: -2081729634
+      Guid: 843b3b105e533f4f8d96dca8460c6073
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
@@ -127,8 +211,8 @@ MonoBehaviour:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E8E17F83-DB24-4756-A5E8-A5CDE0FDBFE3}'
-    m_lastTimePsrt1: -1619196772
-    m_lastTimePart2: -1999323687
+    m_lastTimePsrt1: 410839131
+    m_lastTimePart2: -1999322908
     List:
     - Name: TerrainSwitchGroup
       Path: Default Work Unit\TerrainSwitchGroup
@@ -163,17 +247,17 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{E0A930E7-5E15-4E01-B06D-C6C7DACCD5BF}'
-    m_lastTimePsrt1: -1280563801
-    m_lastTimePart2: -1999323677
+    m_lastTimePsrt1: 464451917
+    m_lastTimePart2: -1999322864
     List:
-    - Name: Footsteps
-      Path: Default Work Unit\Footsteps
+    - Name: Main
+      Path: Default Work Unit\Main
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Footsteps
+      - ElementName: Main
         ObjectType: 7
-      ID: -1909339098
+      ID: -1133058374
       Guid: 6017f35f4be5624aaec217e66430d0fc
     - Name: Underwater
       Path: Default Work Unit\Underwater
