@@ -211,7 +211,7 @@ public class AkWwisePostImportCallbackSetup
         return true;
 #endif
     }
-
+    /*
     private static void RefreshPlugins()
 	{
 		if (string.IsNullOrEmpty(AkWwiseProjectInfo.GetData().CurrentPluginConfig))
@@ -221,12 +221,15 @@ public class AkWwisePostImportCallbackSetup
 
 		AkPluginActivator.RefreshPlugins();
 	}
-	
+	*/
     private static void ClearConsole()
     {
          var logEntries = System.Type.GetType("UnityEditorInternal.LogEntries,UnityEditor.dll");
-         var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-         clearMethod.Invoke(null,null);
+        if(logEntries != null)
+        {
+            var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+            clearMethod.Invoke(null,null);
+        }
     }
 	
 	public static void CheckPicker()
