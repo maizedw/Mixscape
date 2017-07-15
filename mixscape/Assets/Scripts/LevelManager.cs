@@ -5,6 +5,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class LevelManager : MonoBehaviour
 {
+    public Terrain Terrain;
+
     public Material[] SkyboxMaterials;
     private int CurrentSkybox;
     
