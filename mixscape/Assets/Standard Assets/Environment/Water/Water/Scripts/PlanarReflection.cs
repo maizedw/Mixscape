@@ -35,6 +35,7 @@ namespace UnityStandardAssets.Water
             if (!go)
             {
                 go = new GameObject(reflName, typeof(Camera));
+                if (this.transform.parent != null) go.transform.SetParent(this.transform.parent);
             }
             if (!go.GetComponent(typeof(Camera)))
             {

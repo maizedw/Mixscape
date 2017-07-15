@@ -10,11 +10,11 @@ public class LevelManagerEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if (GUILayout.Button("Change Skybox"))
+        base.OnInspectorGUI();
+
+        if (GUILayout.Button("Set to Next Skybox"))
         {
             TargetLevelManager.NextSkybox();
         }
-
-        base.OnInspectorGUI();
     }
 }
