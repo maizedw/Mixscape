@@ -13,7 +13,7 @@ public enum WaterState
 };
 
 [RequireComponent (typeof (CharacterController))]
-public class MixscapeFirstPersonDrifter: MonoBehaviour
+public class MixscapePlayer: MonoBehaviour
 {
     public float walkSpeed = 6.0f;
     public float runSpeed = 10.0f;
@@ -96,7 +96,7 @@ public class MixscapeFirstPersonDrifter: MonoBehaviour
     private bool _globalFogDefaultExcludeFarPixels = true;
     private Color _globalFogDefaultColor = Color.gray;
     public Color GlobalFogUnderwaterColor = Color.blue;
-    public bool _firstFrameEnded = false;
+    private bool _firstFrameEnded = false;
     private List<Collider> _currentWaterCollidingList = new List<Collider>();
     private List<Collider> _currentCaveCollidingList = new List<Collider>();
     private AkEnvironment _currEnvironment;
