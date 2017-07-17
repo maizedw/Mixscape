@@ -21,16 +21,13 @@ public class LevelManagerEditor : Editor
         base.OnInspectorGUI();
 
         EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("Level Editing", EditorStyles.boldLabel);
 
         if (GUILayout.Button("Select Terrain"))
         {
             Terrain terrain = TargetLevelManager.transform.GetComponentInChildren<Terrain>();
             if (terrain == null) terrain = GameObject.FindObjectOfType<Terrain>();
-
-            if (terrain != null)
-            {
-                Selection.activeGameObject = terrain.gameObject;
-            }
+            Select(terrain);
         }
 
         if (GUILayout.Button("Set to Next Skybox"))
@@ -38,6 +35,42 @@ public class LevelManagerEditor : Editor
             NextSkybox();
         }
 
+        if (_levelInfo != null)
+        {
+            EditorGUILayout.Separator();
+            EditorGUILayout.LabelField("Prefab Select", EditorStyles.boldLabel);
+
+            DoSelectRandomPrefabButton("Blocking Rocks", _levelInfo.LevelBlockingObjects);
+            DoSelectRandomPrefabButton("Trees", _levelInfo.TreeObjects);
+            DoSelectRandomPrefabButton("Bushes", _levelInfo.BushObjects);
+            DoSelectRandomPrefabButton("Mushrooms", _levelInfo.MushroomObjects);
+            DoSelectRandomPrefabButton("Rocks", _levelInfo.RockObjects);
+            DoSelectRandomPrefabButton("Human Made", _levelInfo.HumanMadeObjects);
+        }
+    }
+
+    public void DoSelectRandomPrefabButton(string label, GameObject[] objectArray)
+    {
+        if (GUILayout.Button(label))
+        {
+            Select(PullRandom(objectArray));
+        }
+    }
+
+    public static void Select(Component component)
+    {
+        if (component != null)
+        {
+            Selection.activeGameObject = component.gameObject;
+        }
+    }
+
+    public static void Select(GameObject obj)
+    {
+        if (obj != null)
+        {
+            Selection.activeGameObject = obj;
+        }
     }
 
     public void LoadLevelSettings()
@@ -88,5 +121,14 @@ public class LevelManagerEditor : Editor
             }
         }
 #endif
+    }
+
+    public GameObject PullRandom(GameObject[] objectArray)
+    {
+        if (objectArray != null && objectArray.Length > 0)
+        {
+            return objectArray[Random.Range(0, objectArray.Length)];
+        }
+        return null;
     }
 }

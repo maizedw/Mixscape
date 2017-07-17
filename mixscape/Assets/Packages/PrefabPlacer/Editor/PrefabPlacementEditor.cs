@@ -105,7 +105,7 @@ public class PrefabPlacementEditor : Editor
                 rect.width -= floatFieldWidth + hSpace;
                 rect.width -= floatFieldWidth + hSpace;
                 rect.height = EditorGUIUtility.singleLineHeight;
-                EditorGUI.PropertyField(rect, propertyPrefab, GUIContent.none);
+                propertyPrefab.objectReferenceValue = EditorGUI.ObjectField(rect, GUIContent.none, propertyPrefab.objectReferenceValue, typeof(GameObject), false);
 
                 pos.x += rect.width + hSpace; rect.position = pos;
                 rect.width = floatFieldWidth;
