@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54438776, g: 0.50699246, b: 0.52424204, a: 1}
+  m_IndirectSpecularColor: {r: 0.5444003, g: 0.5069907, b: 0.52424306, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1850,10 +1850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1482a86848471c7469b86620fc35a85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Terrain: {fileID: 971403542}
-  SkyboxMaterials:
-  - {fileID: 2100000, guid: 71f14a2d79f732f4d9893ef1b911f4ff, type: 2}
-  - {fileID: 2100000, guid: 4067de1a02072244798361060c5e7325, type: 2}
 --- !u!4 &126277731
 Transform:
   m_ObjectHideFlags: 0
@@ -27610,8 +27606,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2095085539}
-  m_LocalRotation: {x: 0.07799939, y: 0.27792814, z: 0.022648308, w: -0.957162}
-  m_LocalPosition: {x: 84.973564, y: 6.429376, z: -94.21779}
+  m_LocalRotation: {x: 0.037389643, y: 0.36300865, z: 0.0145799285, w: -0.93092114}
+  m_LocalPosition: {x: 28.84848, y: -11.05187, z: -0.43486214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 482940302}
