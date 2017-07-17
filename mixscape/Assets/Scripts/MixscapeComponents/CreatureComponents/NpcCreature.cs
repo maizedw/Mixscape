@@ -40,8 +40,9 @@ public class NpcCreature : Creature
         RespondEvent.m_callbackData.uFlags |= (int)AkCallbackType.AK_EndOfEvent;
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         if(_engagedTimer > 0.0f && !_npcVision.CanSeePlayer())
         {
             _engagedTimer -= Time.deltaTime;

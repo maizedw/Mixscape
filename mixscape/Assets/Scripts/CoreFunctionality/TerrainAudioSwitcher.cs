@@ -22,12 +22,12 @@ public class TerrainAudioSwitcher : MonoBehaviour
     private Vector3 terrainPos;
     private int _currTextureIndex = -1;
     private WaterState _currWaterState;
-    private MixscapeFirstPersonDrifter _player;
+    private MixscapePlayer _player;
 
     // Use this for initialization
     void Start()
     {
-        _player = GetComponent<MixscapeFirstPersonDrifter>();
+        _player = GetComponent<MixscapePlayer>();
         
         terrain = Terrain.activeTerrain;
         terrainData = terrain.terrainData;

@@ -8,18 +8,18 @@ public class NpcVision : MonoBehaviour
     public bool SeePlayerGreet;
 
     private NpcCreature _npc;
-    private MixscapeFirstPersonDrifter _player;
+    private MixscapePlayer _player;
 
     // Use this for initialization
     void Start()
     {
         _npc = GetComponentInParent<NpcCreature>();
-        _player = FindObjectOfType<MixscapeFirstPersonDrifter>();
+        _player = FindObjectOfType<MixscapePlayer>();
     }
 
     protected void OnTriggerEnter(Collider other)
     {
-        MixscapeFirstPersonDrifter player = other.GetComponent<MixscapeFirstPersonDrifter>();
+        MixscapePlayer player = other.GetComponent<MixscapePlayer>();
         if(player != null)
         {
             if(_npc != null)

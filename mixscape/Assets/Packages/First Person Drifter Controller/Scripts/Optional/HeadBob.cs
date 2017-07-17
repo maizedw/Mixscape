@@ -10,11 +10,11 @@ public class HeadBob : MonoBehaviour
 	public float bobbingAmount = 0.05f;
 	public float  midpoint = 0.6f; 
 	
-    private MixscapeFirstPersonDrifter _player;
+    private MixscapePlayer _player;
 
     protected void Start()
     {
-        _player = GetComponentInParent<MixscapeFirstPersonDrifter>();
+        _player = GetComponentInParent<MixscapePlayer>();
     }
 
     void Update ()

@@ -18,7 +18,7 @@ public class CreatureVision : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-        MixscapeFirstPersonDrifter player = other.GetComponent<MixscapeFirstPersonDrifter>();
+        MixscapePlayer player = other.GetComponent<MixscapePlayer>();
         if(player != null)
         {
             if(_creature != null)
