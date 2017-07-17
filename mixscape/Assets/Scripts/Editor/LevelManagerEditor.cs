@@ -10,7 +10,9 @@ public class LevelManagerEditor : Editor
 
     private LevelInfo _levelInfo = null;
     private int _currentSkybox;
-    
+
+    private List<GameObject> _allObjects = new List<GameObject>();
+
     void OnEnable()
     {
         LoadLevelSettings();
@@ -25,9 +27,7 @@ public class LevelManagerEditor : Editor
 
         if (GUILayout.Button("Select Terrain"))
         {
-            Terrain terrain = TargetLevelManager.transform.GetComponentInChildren<Terrain>();
-            if (terrain == null) terrain = GameObject.FindObjectOfType<Terrain>();
-            Select(terrain);
+            Select(GetTerrain());
         }
 
         if (GUILayout.Button("Set to Next Skybox"))
@@ -39,21 +39,72 @@ public class LevelManagerEditor : Editor
         {
             EditorGUILayout.Separator();
             EditorGUILayout.LabelField("Prefab Select", EditorStyles.boldLabel);
+            
+            _allObjects.Clear();
 
-            DoSelectRandomPrefabButton("Blocking Rocks", _levelInfo.LevelBlockingObjects);
-            DoSelectRandomPrefabButton("Trees", _levelInfo.TreeObjects);
-            DoSelectRandomPrefabButton("Bushes", _levelInfo.BushObjects);
-            DoSelectRandomPrefabButton("Mushrooms", _levelInfo.MushroomObjects);
-            DoSelectRandomPrefabButton("Rocks", _levelInfo.RockObjects);
-            DoSelectRandomPrefabButton("Human Made", _levelInfo.HumanMadeObjects);
+            DoPrefabHelperButtons("Blocking Rocks", _levelInfo.LevelBlockingObjects);
+            DoPrefabHelperButtons("Trees", _levelInfo.TreeObjects);
+            DoPrefabHelperButtons("Bushes", _levelInfo.BushObjects);
+            DoPrefabHelperButtons("Mushrooms", _levelInfo.MushroomObjects);
+            DoPrefabHelperButtons("Rocks", _levelInfo.RockObjects);
+            DoPrefabHelperButtons("Human Made", _levelInfo.HumanMadeObjects);
+
+            if (_allObjects.Count > 0)
+            {
+                DoPrefabPlacerModeButton("All", _allObjects.ToArray());
+            }
         }
     }
 
-    public void DoSelectRandomPrefabButton(string label, GameObject[] objectArray)
+    public void DoPrefabHelperButtons(string label, GameObject[] objectArray)
     {
+        GUILayout.BeginHorizontal();
+
         if (GUILayout.Button(label))
         {
             Select(PullRandom(objectArray));
+        }
+
+        DoPrefabPlacerModeButton(label, objectArray);
+
+        GUILayout.EndHorizontal();
+
+        _allObjects.AddRange(objectArray);
+    }
+
+    public void DoPrefabPlacerModeButton(string label, GameObject[] objectArray)
+    {
+        if (GUILayout.Button("Placement Mode: " + label))
+        {
+            if (objectArray.Length > 0)
+            {
+                var terrain = GetTerrain();
+                var placer = terrain.GetComponent<PrefabPlacement>();
+                if (placer)
+                {
+                    placer.Prefabs = new PrefabPlacement.PlaceablePrefab[objectArray.Length];
+                    for (int i = 0; i < objectArray.Length; ++i)
+                    {
+                        GameObject prefab = objectArray[i];
+                        if (prefab != null)
+                        {
+                            if (PrefabUtility.GetPrefabType(prefab) != PrefabType.Prefab)
+                            {
+                                prefab = null;
+                            }
+                        }
+
+                        placer.Prefabs[i] = new PrefabPlacement.PlaceablePrefab
+                        {
+                            Prefab = prefab,
+                            OffsetY = -0.15f,
+                            Place = prefab != null
+                        };
+                    }
+
+                    Select(terrain);
+                }
+            }
         }
     }
 
@@ -121,6 +172,13 @@ public class LevelManagerEditor : Editor
             }
         }
 #endif
+    }
+
+    public Terrain GetTerrain()
+    {
+        Terrain terrain = TargetLevelManager.transform.GetComponentInChildren<Terrain>();
+        if (terrain == null) terrain = GameObject.FindObjectOfType<Terrain>();
+        return terrain;
     }
 
     public GameObject PullRandom(GameObject[] objectArray)
