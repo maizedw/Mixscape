@@ -43,16 +43,24 @@ public class PrefabPlacementEditor : Editor
 
         base.OnInspectorGUI();
 
-        GUILayout.Label(string.Format("Placement mode: {0}", PrefabPlacer.PlacementMode ? "Active" : "Inactive"));
+        EditorGUILayout.Separator();
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Placement mode:", EditorStyles.boldLabel);
+        GUILayout.Label(PrefabPlacer.PlacementMode ? "ACTIVE" : "Inactive", EditorStyles.boldLabel);
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+        if (PrefabPlacer.PlacementMode)
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Label(string.Format("Last Hit: {0}, {1}, {2}", PrefabPlacer.LastHit.x, PrefabPlacer.LastHit.y, PrefabPlacer.LastHit.z));
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.Separator();
 
         if (GUILayout.Button("Toggle Placement Mode"))
         {
             PrefabPlacer.TogglePlacementMode();
-        }
-
-        if (PrefabPlacer.PlacementMode)
-        {
-            GUILayout.Label(string.Format("Last Hit: {0}, {1}, {2}", PrefabPlacer.LastHit.x, PrefabPlacer.LastHit.y, PrefabPlacer.LastHit.z));
         }
 
         EditorGUILayout.Separator();
