@@ -5,133 +5,158 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-using UnityEngine;
-using UnityEditor;
-using System;
-using System.Collections;
-using System.Reflection;
-
-
-public abstract class AkBaseInspector : Editor
+public abstract class AkBaseInspector : UnityEditor.Editor
 {
+	private bool m_buttonWasPressed;
+	private UnityEngine.Rect m_dropAreaRelativePos; //button position relative to the inspector
 
-	protected SerializedProperty[]					m_guidProperty;	//all components have 1 guid except switches and states which have 2. Index zero is value guid and index 1 is group guid
-	protected AkWwiseProjectData.WwiseObjectType	m_objectType;
-	protected string 								m_typeName;
+	protected UnityEditor.SerializedProperty[]
+		m_guidProperty; //all components have 1 guid except switches and states which have 2. Index zero is value guid and index 1 is group guid
 
-	bool 			m_buttonWasPressed		= false;
-	protected bool 	m_isInDropArea 			= false;		//is the mouse on top of the drop area(the button)	
-	Rect 			m_dropAreaRelativePos 	= new Rect();	//button position relative to the inspector
-	Rect			m_pickerPos = new Rect();
+	protected bool m_isInDropArea = false; //is the mouse on top of the drop area(the button)	
+	protected AkWwiseProjectData.WwiseObjectType m_objectType;
+	protected string m_typeName;
 
-	public abstract void	OnChildInspectorGUI ();
-	public abstract string	UpdateIds(Guid[] in_guid);	//set object properties and return its name
+	public abstract void OnChildInspectorGUI();
+	public abstract string UpdateIds(System.Guid[] in_guid); //set object properties and return its name
 
-	public override void OnInspectorGUI()
+	private AkDragDropData GetAkDragDropData()
 	{
-		serializedObject.ApplyModifiedProperties ();
+		var DDData = UnityEditor.DragAndDrop.GetGenericData(AkDragDropHelper.DragDropIdentifier) as AkDragDropData;
+		return DDData != null && DDData.typeName.Equals(m_typeName) ? DDData : null;
+	}
 
-		/***************************************Handle Drag and Drop********************************************************/
-		object[] DDInfo = (object[])DragAndDrop.GetGenericData("AKWwiseDDInfo");
-		if(DDInfo != null && DDInfo.Length >= 4)
+	private void HandleDragAndDrop(UnityEngine.Event currentEvent, UnityEngine.Rect dropArea)
+	{
+		switch (currentEvent.type)
 		{
-			string DDTypeName = (string)DDInfo[3];
-			if(DDTypeName.Equals(m_typeName))
-			{
-				if(Event.current.type == EventType.DragUpdated)
+			case UnityEngine.EventType.DragUpdated:
+				if (dropArea.Contains(currentEvent.mousePosition))
 				{
-					//mousePosition is not available during DragExited event but is available during the DragUpdated event.
-					m_isInDropArea = m_dropAreaRelativePos.Contains(Event.current.mousePosition);
-				
-					if(m_isInDropArea)
+					var DDData = GetAkDragDropData();
+					UnityEditor.DragAndDrop.visualMode = DDData != null
+						? UnityEditor.DragAndDropVisualMode.Link
+						: UnityEditor.DragAndDropVisualMode.Rejected;
+					currentEvent.Use();
+				}
+
+				break;
+
+			case UnityEngine.EventType.DragPerform:
+				if (dropArea.Contains(currentEvent.mousePosition))
+				{
+					var DDData = GetAkDragDropData();
+
+					UnityEditor.DragAndDrop.AcceptDrag();
+					if (DDData != null)
 					{
-						DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-						DragAndDrop.AcceptDrag();
+						AkUtilities.SetByteArrayProperty(m_guidProperty[0], DDData.guid.ToByteArray());
+
+						var DDGroupData = DDData as AkDragDropGroupData;
+						if (DDGroupData != null && m_guidProperty.Length > 1)
+							AkUtilities.SetByteArrayProperty(m_guidProperty[1], DDGroupData.groupGuid.ToByteArray());
+
+						//needed for the undo operation to work
+						UnityEngine.GUIUtility.hotControl = 0;
 					}
-					return;
+
+					currentEvent.Use();
 				}
-				if(Event.current.type == EventType.DragExited && m_isInDropArea) 
-				{
-					Guid DDGuid = (Guid)DDInfo[1];
-					AkUtilities.SetByteArrayProperty(m_guidProperty[0], DDGuid.ToByteArray());
-						
-					//needed for the undo operation to work
-					GUIUtility.hotControl = 0;
 
-					m_isInDropArea = false;
-					return;
-				}
-			}
-		}
-		/*******************************************************************************************************************/
+				break;
 
-
-		/************************************************Update Properties**************************************************/
-		Guid[] componentGuid = new Guid[m_guidProperty.Length];
-		for(int i = 0; i < componentGuid.Length; i++)
-		{
-			byte[] guidBytes = AkUtilities.GetByteArrayProperty (m_guidProperty[i]);
-			componentGuid[i] = guidBytes == null ? Guid.Empty : new Guid(guidBytes); 
-		}
-
-		string componentName = UpdateIds (componentGuid);
-		/*******************************************************************************************************************/
-
-
-		/********************************************Draw GUI***************************************************************/
-		OnChildInspectorGUI ();
-
-		GUILayout.Space(3);
-
-		GUILayout.BeginHorizontal("box");
-		{
-			float inspectorWidth = Screen.width - GUI.skin.box.margin.left - GUI.skin.box.margin.right - 19;
-			GUILayout.Label (m_typeName + " Name: ", GUILayout.Width (inspectorWidth * 0.4f));
-			
-			GUIStyle style = new GUIStyle(GUI.skin.button);
-			style.alignment = TextAnchor.MiddleLeft;
-			if(componentName.Equals(String.Empty))
-			{
-				componentName = "No " + m_typeName + " is currently selected";
-				style.normal.textColor = Color.red;
-			}
-			
-			if(GUILayout.Button(componentName, style, GUILayout.MaxWidth (inspectorWidth * 0.6f - GUI.skin.box.margin.right)))
-			{
-				m_buttonWasPressed = true;
-				
-				// We don't want to set object as dirty only because we clicked the button.
-				// It will be set as dirty if the wwise object has been changed by the tree view.
-				GUI.changed = false;
-			}
-
-			//GUILayoutUtility.GetLastRect and AkUtilities.GetLastRectAbsolute must be called in repaint mode 
-			if(Event.current.type == EventType.Repaint)
-			{
-				m_dropAreaRelativePos = GUILayoutUtility.GetLastRect();
-				
-				if(m_buttonWasPressed)
-				{
-					m_pickerPos = AkUtilities.GetLastRectAbsolute();
-					EditorApplication.delayCall += DelayCreateCall;
-					m_buttonWasPressed = false;
-				}
-			}
-		}
-		GUILayout.EndHorizontal ();
-		
-		GUILayout.Space(5);
-		/***********************************************************************************************************************/  
-
-		if (GUI.changed)
-		{
-			EditorUtility.SetDirty(serializedObject.targetObject);
+			case UnityEngine.EventType.DragExited:
+				// clear dragged data
+				UnityEditor.DragAndDrop.PrepareStartDrag();
+				break;
 		}
 	}
 
-	void DelayCreateCall()
+
+	public override void OnInspectorGUI()
 	{
-		AkWwiseComponentPicker.Create(m_objectType, m_guidProperty, serializedObject, m_pickerPos);
+		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
+
+		OnChildInspectorGUI();
+
+		serializedObject.ApplyModifiedProperties();
+
+		var currentEvent = UnityEngine.Event.current;
+		HandleDragAndDrop(currentEvent, m_dropAreaRelativePos);
+
+		/************************************************Update Properties**************************************************/
+		string componentName = "---";
+
+		var hasMultipleDifferentValues = false;
+		for (var i = 0; i < m_guidProperty.Length; i++)
+			hasMultipleDifferentValues = hasMultipleDifferentValues || m_guidProperty[i].hasMultipleDifferentValues;
+
+		if (!hasMultipleDifferentValues)
+		{
+			var componentGuid = new System.Guid[m_guidProperty.Length];
+			for (var i = 0; i < componentGuid.Length; i++)
+			{
+				var guidBytes = AkUtilities.GetByteArrayProperty(m_guidProperty[i]);
+				componentGuid[i] = guidBytes == null ? System.Guid.Empty : new System.Guid(guidBytes);
+			}
+			componentName = UpdateIds(componentGuid);
+		}
+
+		/*******************************************************************************************************************/
+
+		/********************************************Draw GUI***************************************************************/
+
+		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
+
+		using (new UnityEngine.GUILayout.HorizontalScope("box"))
+		{
+			float inspectorWidth = UnityEngine.Screen.width - UnityEngine.GUI.skin.box.margin.left -
+			                       UnityEngine.GUI.skin.box.margin.right - 19;
+			UnityEngine.GUILayout.Label(m_typeName + " Name: ", UnityEngine.GUILayout.Width(inspectorWidth * 0.4f));
+
+			var style = new UnityEngine.GUIStyle(UnityEngine.GUI.skin.button);
+			style.alignment = UnityEngine.TextAnchor.MiddleLeft;
+			if (componentName.Equals(string.Empty))
+			{
+				componentName = "No " + m_typeName + " is currently selected";
+				style.normal.textColor = UnityEngine.Color.red;
+			}
+
+			if (UnityEngine.GUILayout.Button(new UnityEngine.GUIContent(componentName, hasMultipleDifferentValues ? "Mixed Values" : ""), style,
+				UnityEngine.GUILayout.MaxWidth(inspectorWidth * 0.6f - UnityEngine.GUI.skin.box.margin.right)))
+			{
+				m_buttonWasPressed = true;
+
+				// We don't want to set object as dirty only because we clicked the button.
+				// It will be set as dirty if the wwise object has been changed by the tree view.
+				UnityEngine.GUI.changed = false;
+			}
+
+			//GUILayoutUtility.GetLastRect and AkUtilities.GetLastRectAbsolute must be called in repaint mode 
+			if (currentEvent.type == UnityEngine.EventType.Repaint)
+			{
+				m_dropAreaRelativePos = UnityEngine.GUILayoutUtility.GetLastRect();
+
+				if (m_buttonWasPressed)
+				{
+					m_buttonWasPressed = false;
+
+					new AkWwiseComponentPicker.PickerCreator
+					{
+						objectType = m_objectType,
+						guidProperty = m_guidProperty,
+						idProperty = null,
+						pickerPosition = AkUtilities.GetLastRectAbsolute(UnityEngine.GUILayoutUtility.GetLastRect()),
+						serializedObject = serializedObject
+					};
+				}
+			}
+		}
+
+		/***********************************************************************************************************************/
+
+		if (UnityEngine.GUI.changed)
+			UnityEditor.EditorUtility.SetDirty(serializedObject.targetObject);
 	}
 }
 

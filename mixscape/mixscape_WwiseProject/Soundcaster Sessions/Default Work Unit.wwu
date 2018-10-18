@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{08A64AE5-1602-456C-9E63-F62F24CA3A9A}" SchemaVersion="75">
+<WwiseDocument Type="WorkUnit" ID="{08A64AE5-1602-456C-9E63-F62F24CA3A9A}" SchemaVersion="89">
 	<SoundcasterSessions>
-		<WorkUnit Name="Default Work Unit" ID="{08A64AE5-1602-456C-9E63-F62F24CA3A9A}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{08A64AE5-1602-456C-9E63-F62F24CA3A9A}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="state tests" ID="{B2E9F3DC-93AE-45EE-8E02-21D297FB3161}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="Atmos" ID="{79550C98-87A2-4B51-87AB-93145E539A31}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Greeting" ID="{1CAE6F60-E8A8-45AE-B54D-C053D731A21D}" WorkUnitID="{E1A9AEAB-ABC5-4540-82C3-DA1D3C946B14}"/>
+							<Position X="0" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="FootstepsSwitch" ID="{1A602F71-D7A2-41FA-A206-B735E6C9DBD0}" WorkUnitID="{2DC94DE3-14FE-49A4-9EAD-54FECBFDE2C8}"/>
+							<Position X="1" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="water" ID="{207E0418-3846-4621-9B85-13129BF23F92}" WorkUnitID="{3E3CBDF4-A781-4CD5-B59C-5986EE524240}"/>
+							<Position X="2" Y="0"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true">
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Turbulence" ID="{EDA87B19-73AA-40A0-9F19-2073606DB710}"/>
+							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="ToD" ID="{365AF155-70B3-40B4-83C6-C7F0E8745AFE}"/>
+							<Value>23</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Month" ID="{09E2B445-C4A3-447F-B3CA-818A1D925EF7}"/>
+							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_RPM" ID="{A34890AB-B9D5-4526-A64D-5290C43EF2DC}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="danger" ID="{BBF9C692-3392-459C-9A8E-13FC1FB2A050}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Fury" ID="{A2AE79DC-CA3A-46BA-9652-9986C322A87B}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Size" ID="{1329EBEF-A193-472E-A38C-64668B494879}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Storm" ID="{E93F8CDB-06D1-4737-ACAF-7CD44BBED783}"/>
+							<Value>75</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="rain_units" ID="{7A816A6B-4B77-47F6-9537-C15D04FE8445}"/>
+							<Value>87.303664921466</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Presence" ID="{E3B7811A-7B2F-490F-B44F-5FE51B468041}"/>
+							<Value>75</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_TimeOfDay" ID="{536FA72C-8C7E-4C8B-AE03-EF34FDADC314}"/>
+							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Freefall" ID="{2F2DFE37-4F9E-4D94-83D8-53CCA39781AD}"/>
+							<Value>75</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Fear" ID="{F72E0659-4346-4E1C-A1B1-DAB46A05101E}"/>
+							<Value>50</Value>
+						</RTPCValue>
+					</RTPCValueList>
+					<CurrentStateList ShowAll="true">
+						<CurrentStateRef Name="cave" ID="{A70C59C4-AFE5-4B90-B1F9-500180B7BC01}"/>
+					</CurrentStateList>
+					<CurrentSwitchList ShowAll="true">
+						<CurrentSwitchRef Name="Dirt" ID="{BD1D2F8A-9404-4F03-A5E0-D039B2879AF1}"/>
+					</CurrentSwitchList>
+				</SoundcasterSession>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundcasterSessions>
 </WwiseDocument>

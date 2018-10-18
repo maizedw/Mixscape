@@ -1359,7 +1359,7 @@ namespace UMAEditor
 					_oldTarget = target;
 				}
 
-				if (_rebuildOnLayout && Event.current.type == EventType.layout)
+				if (_rebuildOnLayout && Event.current.type == EventType.Layout)
 				{
 					Rebuild();
 				}

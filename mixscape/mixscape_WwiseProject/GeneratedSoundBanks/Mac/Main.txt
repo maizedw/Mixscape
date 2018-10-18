@@ -1,11 +1,17 @@
 Event	ID	Name			Wwise Object Path	Notes
 	674522502	Land			\Default Work Unit\Land	
+	782580947	StartAtmos			\Default Work Unit\StartAtmos	
+	787417374	ExitUnderwater			\Default Work Unit\ExitUnderwater	
 	884831434	ChangeEnv_Cave			\Default Work Unit\ChangeEnv_Cave	
 	928611434	ChangeEnv_Outside			\Default Work Unit\ChangeEnv_Outside	
+	2090431140	Response			\Default Work Unit\Response	
 	2385628198	Footsteps			\Default Work Unit\Footsteps	
+	2707154247	LowRegisterResponse			\Default Work Unit\LowRegisterResponse	
 	3107706658	ChangeEnv_Underwater			\Default Work Unit\ChangeEnv_Underwater	
 	3195589498	ChangeEnv_Forest			\Default Work Unit\ChangeEnv_Forest	
+	3827058668	StartMusic			\Default Work Unit\StartMusic	
 	3833651337	Jump			\Default Work Unit\Jump	
+	4185698490	EnterUnderwater			\Default Work Unit\EnterUnderwater	
 
 Switch Group	ID	Name			Wwise Object Path	Notes
 	3643368013	TerrainSwitchGroup			\Default Work Unit\TerrainSwitchGroup	
@@ -16,8 +22,20 @@ Switch	ID	Name	Switch Group			Notes
 	3257354777	StandingInWater	TerrainSwitchGroup			
 	4248645337	Grass	TerrainSwitchGroup			
 
+State Group	ID	Name			Wwise Object Path	Notes
+	1229948536	Environment			\Default Work Unit\Environment	
+
+State	ID	Name	State Group			Notes
+	0	None	Environment			
+	491961918	forest	Environment			
+	2654748154	water	Environment			
+	4122393694	cave	Environment			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	1025628059	water	Environment	\Interactive Music Hierarchy\Default Work Unit\water\ambient1\loop2		
+
 Game Parameter	ID	Name			Wwise Object Path	Notes
-	2861796105	player_scale			\Default Work Unit\player_scale	
+	3558916787	rain_units			\Default Work Unit\rain_units	
 
 Audio Bus	ID	Name			Wwise Object Path	Notes
 	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
@@ -29,15 +47,25 @@ Auxiliary Bus	ID	Name			Wwise Object Path	Notes
 	4122393694	Cave			\Default Work Unit\Master Audio Bus\Cave	
 
 Effect plug-ins	ID	Name	Type				Notes
+	959066373	Wwise Gain (Custom)	Wwise Gain			
 	1820854077	Noise_Gate_Fast_Attack	Wwise Expander			
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	105681997	Footstep03	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Footstep03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\DirtFootsteps\Footstep03		52872
-	488214762	Footstep01	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Footstep01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\DirtFootsteps\Footstep01		48056
-	523273653	Footstep04	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Footstep04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\DirtFootsteps\Footstep04		38368
-	611297062	Footstep02	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Footstep02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\DirtFootsteps\Footstep02		49736
-	626485153	Land	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Land_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Land		45482
-	697224158	269010__lwdickens__water-splash-3	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\269010__lwdickens__water-splash-3_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\WaterFootsteps\269010__lwdickens__water-splash-3		183244
-	714319681	190085__tran5ient__splash9	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\190085__tran5ient__splash9_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\UnderwaterFootsteps\190085__tran5ient__splash9		320072
-	921952352	Jump	C:\workspace\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Jump_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Jump		22390
+	16820720	thunder_strike_03	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\thunder_strike_03_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Atmos\outdoor-rain\heavy w thunder\thunder\thunder_strike_03		2955328
+	26926380	CHIL Forest Rain quiet with water drop on leaves few birds	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\CHIL Forest Rain quiet with water drop on leaves few birds_0A288869.wem		\Actor-Mixer Hierarchy\Default Work Unit\Atmos\outdoor-rain\CHIL Forest Rain quiet with water drop on leaves few birds		29460744
+	94424531	thunder_clap_04	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\thunder_clap_04_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Atmos\outdoor-rain\heavy w thunder\thunder\thunder_clap_04		2817020
+	180310895	lily_respond_2	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\lily11_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\lily_response\lily_respond_2		251320
+	429506192	Cavern Sound effect_Short - Loop	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Cavern Sound effect_Short - Loop_0A288869.wem		\Actor-Mixer Hierarchy\Default Work Unit\Atmos\Cavern Sound effect_Short - Loop		31046464
+	626485153	Land	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Land_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Land		45482
+	647477946	lily_respond_1	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\lily5_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\lily_response\lily_respond_1		305820
+	679872390	43 Inside boat_rain 2	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\43 Inside boat_rain 2_0A288869.wem		\Actor-Mixer Hierarchy\Default Work Unit\Atmos\outdoor-rain\heavy w thunder\43 Inside boat_rain 2		11018556
+	697224158	269010__lwdickens__water-splash-3	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\269010__lwdickens__water-splash-3_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\WaterFootsteps\269010__lwdickens__water-splash-3		183244
+	714319681	190085__tran5ient__splash9	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\190085__tran5ient__splash9_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\FootstepsSwitch\UnderwaterFootsteps\190085__tran5ient__splash9		320072
+	759825817	hugo_respond_2	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\hugo08_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\hugo_response\hugo_respond_2		552876
+	796168968	hugo_respond_1	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\hugo06_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\hugo_response\hugo_respond_1		342468
+	921952352	Jump	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\Jump_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Jump		22390
+	934557145	thunder_mountainous_big_crack_02	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\thunder_mountainous_big_crack_02_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Atmos\outdoor-rain\heavy w thunder\thunder\thunder_mountainous_big_crack_02		1573676
+	999099597	loop1	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\loop1_0A288869.wem		\Interactive Music Hierarchy\Default Work Unit\water\ambient1\loop1		672064
+	1001590738	loop2	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\loop2_0A288869.wem		\Interactive Music Hierarchy\Default Work Unit\water\ambient1\loop2		672064
+	1032065584	thunder_mountainous_distant_03	D:\BOXHILL\Game Audio 2\boxhillcommjam\mixscape\mixscape_WwiseProject\.cache\Mac\SFX\thunder_mountainous_distant_03_CC87FBFB.wem		\Actor-Mixer Hierarchy\Default Work Unit\Atmos\outdoor-rain\heavy w thunder\thunder\thunder_mountainous_distant_03		2224952
 

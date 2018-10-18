@@ -1,59 +1,57 @@
-#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
 //////////////////////////////////////////////////////////////////////
 //
 // Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
 //
 //////////////////////////////////////////////////////////////////////
 
-using UnityEngine;
-using System;
-using System.Collections.Generic;
-
-
 public class AkGameObjEnvironmentData
 {
-	/// Contains all active environments sorted by priority, even those inside a portal.
-	private List<AkEnvironment> activeEnvironmentsFromPortals = new List<AkEnvironment>();
-
 	/// Contains all active environments sorted by default, excludeOthers and priority, even those inside a portal.
-	private List<AkEnvironment> activeEnvironments = new List<AkEnvironment>();
+	private readonly System.Collections.Generic.List<AkEnvironment> activeEnvironments =
+		new System.Collections.Generic.List<AkEnvironment>();
+
+	/// Contains all active environments sorted by priority, even those inside a portal.
+	private readonly System.Collections.Generic.List<AkEnvironment> activeEnvironmentsFromPortals =
+		new System.Collections.Generic.List<AkEnvironment>();
 
 	/// Contains all active portals.
-	private List<AkEnvironmentPortal> activePortals = new List<AkEnvironmentPortal>();
+	private readonly System.Collections.Generic.List<AkEnvironmentPortal> activePortals =
+		new System.Collections.Generic.List<AkEnvironmentPortal>();
 
-	private AkAuxSendArray auxSendValues = new AkAuxSendArray();
-	private bool isDirty = true;
+	private readonly AkAuxSendArray auxSendValues = new AkAuxSendArray();
+	private UnityEngine.Vector3 lastPosition = UnityEngine.Vector3.zero;
+	private bool hasEnvironmentListChanged = true;
+	private bool hasActivePortalListChanged = true;
+	private bool hasSentZero = false;
 
-
-	private void AddHighestPriorityEnvironmentsFromPortals(Vector3 position)
+	private void AddHighestPriorityEnvironmentsFromPortals(UnityEngine.Vector3 position)
 	{
-		for (int i = 0; i < activePortals.Count; i++)
+		for (var i = 0; i < activePortals.Count; i++)
+		for (var j = 0; j < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; j++)
 		{
-			for (int j = 0; j < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; j++)
+			var env = activePortals[i].environments[j];
+			if (env != null)
 			{
-				AkEnvironment env = activePortals[i].environments[j];
-				if (env != null)
+				var index = activeEnvironmentsFromPortals.BinarySearch(env, AkEnvironment.s_compareByPriority);
+				if (index >= 0 && index < AkEnvironment.MAX_NB_ENVIRONMENTS)
 				{
-					int index = activeEnvironmentsFromPortals.BinarySearch(env, AkEnvironment.s_compareByPriority);
-					if (index >= 0 && index < AkEnvironment.MAX_NB_ENVIRONMENTS)
-					{
-						auxSendValues.Add(env.GetAuxBusID(), activePortals[i].GetAuxSendValueForPosition(position, j));
-						if (auxSendValues.isFull)
-							return;
-					}
+					auxSendValues.Add(env.GetAuxBusID(), activePortals[i].GetAuxSendValueForPosition(position, j));
+					if (auxSendValues.isFull)
+						return;
 				}
 			}
 		}
 	}
 
-	private void AddHighestPriorityEnvironments(Vector3 position)
+	private void AddHighestPriorityEnvironments(UnityEngine.Vector3 position)
 	{
-		if (!auxSendValues.isFull && auxSendValues.m_Count < activeEnvironments.Count)
+		if (!auxSendValues.isFull && auxSendValues.Count() < activeEnvironments.Count)
 		{
-			for (int i = 0; i < activeEnvironments.Count; i++)
+			for (var i = 0; i < activeEnvironments.Count; i++)
 			{
-				AkEnvironment env = activeEnvironments[i];
-				uint auxBusID = env.GetAuxBusID();
+				var env = activeEnvironments[i];
+				var auxBusID = env.GetAuxBusID();
 
 				if ((!env.isDefault || i == 0) && !auxSendValues.Contains(auxBusID))
 				{
@@ -67,24 +65,30 @@ public class AkGameObjEnvironmentData
 		}
 	}
 
-	public void UpdateAuxSend(GameObject gameObject, Vector3 position)
+	public void UpdateAuxSend(UnityEngine.GameObject gameObject, UnityEngine.Vector3 position)
 	{
-		if (!isDirty)
+		if (!hasEnvironmentListChanged && !hasActivePortalListChanged && lastPosition == position)
 			return;
 
 		auxSendValues.Reset();
 		AddHighestPriorityEnvironmentsFromPortals(position);
 		AddHighestPriorityEnvironments(position);
 
-		AkSoundEngine.SetGameObjectAuxSendValues(gameObject, auxSendValues, auxSendValues.m_Count);
-		isDirty = false;
+		bool isSendingZero = auxSendValues.Count() == 0;
+		if (!hasSentZero || !isSendingZero)
+			AkSoundEngine.SetEmitterAuxSendValues(gameObject, auxSendValues, (uint) auxSendValues.Count());
+
+		hasSentZero = isSendingZero;
+		lastPosition = position;
+		hasActivePortalListChanged = false;
+		hasEnvironmentListChanged = false;
 	}
 
 	private void TryAddEnvironment(AkEnvironment env)
 	{
 		if (env != null)
 		{
-			int index = activeEnvironmentsFromPortals.BinarySearch(env, AkEnvironment.s_compareByPriority);
+			var index = activeEnvironmentsFromPortals.BinarySearch(env, AkEnvironment.s_compareByPriority);
 			if (index < 0)
 			{
 				activeEnvironmentsFromPortals.Insert(~index, env);
@@ -93,7 +97,7 @@ public class AkGameObjEnvironmentData
 				if (index < 0)
 					activeEnvironments.Insert(~index, env);
 
-				isDirty = true;
+				hasEnvironmentListChanged = true;
 			}
 		}
 	}
@@ -102,58 +106,61 @@ public class AkGameObjEnvironmentData
 	{
 		activeEnvironmentsFromPortals.Remove(env);
 		activeEnvironments.Remove(env);
-		isDirty = true;
+		hasEnvironmentListChanged = true;
 	}
 
-	public void AddAkEnvironment(GameObject in_AuxSendObject, GameObject gameObject)
+	public void AddAkEnvironment(UnityEngine.Collider environmentCollider, UnityEngine.Collider gameObjectCollider)
 	{
-		AkEnvironmentPortal portal = in_AuxSendObject.GetComponent<AkEnvironmentPortal>();
+		var portal = environmentCollider.GetComponent<AkEnvironmentPortal>();
 		if (portal != null)
 		{
 			activePortals.Add(portal);
+			hasActivePortalListChanged = true;
 
-			for (int i = 0; i < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; i++)
+			for (var i = 0; i < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; i++)
 				TryAddEnvironment(portal.environments[i]);
 		}
 		else
 		{
-			AkEnvironment env = in_AuxSendObject.GetComponent<AkEnvironment>();
+			var env = environmentCollider.GetComponent<AkEnvironment>();
 			TryAddEnvironment(env);
 		}
 	}
 
 	private bool AkEnvironmentBelongsToActivePortals(AkEnvironment env)
 	{
-		for (int i = 0; i < activePortals.Count; i++)
-			for (int j = 0; j < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; j++)
-				if (env == activePortals[i].environments[j])
-					return true;
+		for (var i = 0; i < activePortals.Count; i++)
+		for (var j = 0; j < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; j++)
+		{
+			if (env == activePortals[i].environments[j])
+				return true;
+		}
 
 		return false;
 	}
 
-	public void RemoveAkEnvironment(GameObject in_AuxSendObject, GameObject gameObject, Collider collider)
+	public void RemoveAkEnvironment(UnityEngine.Collider environmentCollider, UnityEngine.Collider gameObjectCollider)
 	{
-		AkEnvironmentPortal portal = in_AuxSendObject.GetComponent<AkEnvironmentPortal>();
+		var portal = environmentCollider.GetComponent<AkEnvironmentPortal>();
 		if (portal != null)
 		{
-			for (int i = 0; i < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; i++)
+			for (var i = 0; i < AkEnvironmentPortal.MAX_ENVIRONMENTS_PER_PORTAL; i++)
 			{
-				AkEnvironment env = portal.environments[i];
-				if (env != null && !collider.bounds.Intersects(env.GetCollider().bounds))
+				var env = portal.environments[i];
+				if (env != null && !gameObjectCollider.bounds.Intersects(env.GetCollider().bounds))
 					RemoveEnvironment(env);
 			}
 
 			activePortals.Remove(portal);
-			isDirty = true;
+			hasActivePortalListChanged = true;
 		}
 		else
 		{
-			AkEnvironment env = in_AuxSendObject.GetComponent<AkEnvironment>();
+			var env = environmentCollider.GetComponent<AkEnvironment>();
 			if (env != null && !AkEnvironmentBelongsToActivePortals(env))
 				RemoveEnvironment(env);
 		}
 	}
 }
 
-#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

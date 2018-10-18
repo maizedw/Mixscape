@@ -1,23 +1,13 @@
-#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
 //////////////////////////////////////////////////////////////////////
 //
 // Copyright (c) 2012 Audiokinetic Inc. / All Rights Reserved
 //
 //////////////////////////////////////////////////////////////////////
 
-using UnityEngine;
-using System.Collections.Generic;
-using System.IO;
-using System;
-using System.Reflection;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
-#pragma warning disable 0219, 0414
-
-[AddComponentMenu("Wwise/AkInitializer")]
+[UnityEngine.AddComponentMenu("Wwise/AkInitializer")]
+[UnityEngine.DisallowMultipleComponent]
+[UnityEngine.ExecuteInEditMode]
 /// This script deals with initialization, and frame updates of the Wwise audio engine.  
 /// It is marked as \c DontDestroyOnLoad so it stays active for the life of the game, 
 /// not only one scene. You can, and probably should, modify this script to change the 
@@ -25,329 +15,165 @@ using UnityEditor;
 /// It must be present on one Game Object at the beginning of the game to initialize the audio properly.
 /// It must be executed BEFORE any other MonoBehaviors that use AkSoundEngine.
 /// \sa
-/// - \ref workingwithsdks_initialization
-/// - AK::SoundEngine::Init()
-/// - AK::SoundEngine::Term()
+/// - <a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=workingwithsdks__initialization.html" target="_blank">Initialize the Different Modules of the Sound Engine</a> (Note: This is described in the Wwise SDK documentation.)
+/// - <a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=namespace_a_k_1_1_sound_engine_a27257629833b9481dcfdf5e793d9d037.html#a27257629833b9481dcfdf5e793d9d037" target="_blank">AK::SoundEngine::Init()</a> (Note: This is described in the Wwise SDK documentation.)
+/// - <a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=namespace_a_k_1_1_sound_engine_a9176602bbe972da4acc1f8ebdb37f2bf.html#a9176602bbe972da4acc1f8ebdb37f2bf" target="_blank">AK::SoundEngine::Term()</a> (Note: This is described in the Wwise SDK documentation.)
 /// - AkCallbackManager
-[RequireComponent(typeof(AkTerminator))]
-public class AkInitializer : MonoBehaviour
+public class AkInitializer : UnityEngine.MonoBehaviour
 {
-    public readonly static string c_DefaultBasePath = Path.Combine("Audio", "GeneratedSoundBanks");
-    ///Path for the soundbanks. This must contain one sub folder per platform, with the same as in the Wwise project.
-    public string basePath = c_DefaultBasePath;
+	private static AkInitializer ms_Instance;
 
-    public const string c_Language = "English(US)";
-    /// Language sub-folder. 
-    public string language = c_Language;
+	public AkWwiseInitializationSettings InitializationSettings;
 
-    public const int c_DefaultPoolSize = 4096;
-    ///Default Pool size.  This contains the meta data for your audio project.  Default size is 4 MB, but you should adjust for your needs.
-    public int defaultPoolSize = c_DefaultPoolSize;
-
-    public const int c_LowerPoolSize = 2048;
-    ///Lower Pool size.  This contains the audio processing buffers and DSP data.  Default size is 2 MB, but you should adjust for your needs.
-    public int lowerPoolSize = c_LowerPoolSize;
-
-    public const int c_StreamingPoolSize = 1024;
-    ///Streaming Pool size.  This contains the streaming buffers.  Default size is 1 MB, but you should adjust for your needs.
-    public int streamingPoolSize = c_StreamingPoolSize;
-	
-	public const int c_PreparePoolSize = 0;
-    ///Prepare Pool size.  This contains the banks loaded using PrepareBank (Banks decoded on load use this).  Default size is 0 MB, but you should adjust for your needs.
-	public int preparePoolSize = c_PreparePoolSize;
-
-    public const float c_MemoryCutoffThreshold = 0.95f;
-    ///This setting will trigger the killing of sounds when the memory is reaching 95% of capacity.  Lowest priority sounds are killed.
-    public float memoryCutoffThreshold = c_MemoryCutoffThreshold;
-    
-    public const bool c_EngineLogging = true;
-    ///Enable Wwise engine logging. Option to turn on/off the logging of the Wwise engine.
-    public bool engineLogging = c_EngineLogging;
-    
-    public static string GetBasePath()
-    {
-#if UNITY_EDITOR
-        return WwiseSettings.LoadSettings().SoundbankPath;
-#else
-        return ms_Instance.basePath;
-#endif
-    }
-
-    public static string GetDecodedBankFolder()
-    {
-    	return "DecodedBanks";
-    }
-    
-    public static string GetDecodedBankFullPath()
-    {
-#if (UNITY_ANDROID || UNITY_IOS) && ! UNITY_EDITOR
-		return Path.Combine(Application.persistentDataPath, GetDecodedBankFolder());
-#else
-		return Path.Combine (AkBasePathGetter.GetPlatformBasePath(), GetDecodedBankFolder());
-#endif
-    }
-	
-    public static string GetCurrentLanguage()
-    {
-        return ms_Instance.language;
-    }
-
-    void Awake()
-    {
-		Initialize();
-	}
-	
-	public void Initialize()
+	private void Awake()
 	{
-        if (ms_Instance != null)
-        {
-            //Don't init twice
-            //Check if there are 2 objects with this script.  If yes, remove this component.
-            if (ms_Instance != this)
-                UnityEngine.Object.DestroyImmediate(this.gameObject);
-            return;
-        }
-
-        Debug.Log("WwiseUnity: Initialize sound engine ...");
-
-        //Use default properties for most SoundEngine subsystem.  
-        //The game programmer should modify these when needed.  See the Wwise SDK documentation for the initialization.
-        //These settings may very well change for each target platform.
-        AkMemSettings memSettings = new AkMemSettings();
-        memSettings.uMaxNumPools = 20;
-
-        AkDeviceSettings deviceSettings = new AkDeviceSettings();
-        AkSoundEngine.GetDefaultDeviceSettings(deviceSettings);
-
-        AkStreamMgrSettings streamingSettings = new AkStreamMgrSettings();
-        streamingSettings.uMemorySize = (uint)streamingPoolSize * 1024;
-
-        AkInitSettings initSettings = new AkInitSettings();       
-        AkSoundEngine.GetDefaultInitSettings(initSettings);
-        initSettings.uDefaultPoolSize = (uint)defaultPoolSize * 1024;
-#if (!UNITY_ANDROID && !UNITY_WSA) || UNITY_EDITOR // Exclude WSA. It only needs the name of the DLL, and no path.
-        initSettings.szPluginDLLPath = Path.Combine(Application.dataPath, "Plugins" + Path.DirectorySeparatorChar);
-#endif
-        
-
-        AkPlatformInitSettings platformSettings = new AkPlatformInitSettings();
-        AkSoundEngine.GetDefaultPlatformInitSettings(platformSettings);
-        platformSettings.uLEngineDefaultPoolSize = (uint)lowerPoolSize * 1024;
-        platformSettings.fLEngineDefaultPoolRatioThreshold = memoryCutoffThreshold;
-
-        AkMusicSettings musicSettings = new AkMusicSettings();
-        AkSoundEngine.GetDefaultMusicSettings(musicSettings);
-
-// Unity 5 only, Unity 4 doesn't provide a way to access the product name at runtime.
-#if UNITY_5
-#if UNITY_EDITOR
-        AkSoundEngine.SetGameName(Application.productName + " (Editor)");
-#else
-		AkSoundEngine.SetGameName(Application.productName);
-#endif
-#endif
-        
-        AKRESULT result = AkSoundEngine.Init(memSettings, streamingSettings, deviceSettings, initSettings, platformSettings, musicSettings, (uint)preparePoolSize*1024);
-        if (result != AKRESULT.AK_Success)
-        {
-            Debug.LogError("WwiseUnity: Failed to initialize the sound engine. Abort.");
-            return; //AkSoundEngine.Init should have logged more details.
-        }
-
-        ms_Instance = this;
-
-        string basePathToSet = AkBasePathGetter.GetValidBasePath();
-        if (string.IsNullOrEmpty(basePathToSet))
-        {
-            return;
-        }
-
-		result = AkSoundEngine.SetBasePath(basePathToSet);
-		if (result != AKRESULT.AK_Success)
+		if (ms_Instance)
 		{
+			DestroyImmediate(this);
 			return;
 		}
 
-#if !UNITY_SWITCH
-        AkSoundEngine.SetDecodedBankPath(GetDecodedBankFullPath());
-#endif
-
-        AkSoundEngine.SetCurrentLanguage(language);
-
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-		AkSoundEngine.AddBasePath (	Application.persistentDataPath + Path.DirectorySeparatorChar );	
-#endif
-	
-        result = AkCallbackManager.Init();
-        if (result != AKRESULT.AK_Success)
-        {
-            Debug.LogError("WwiseUnity: Failed to initialize Callback Manager. Terminate sound engine.");
-            AkSoundEngine.Term();
-            ms_Instance = null;
-            return;
-        }
-
-        AkBankManager.Reset ();
-
-        Debug.Log("WwiseUnity: Sound engine initialized.");
-
-        //The sound engine should not be destroyed once it is initialized.
-        DontDestroyOnLoad(this);
+		ms_Instance = this;
 
 #if UNITY_EDITOR
-        //Redirect Wwise error messages into Unity console.
-        AkCallbackManager.SetMonitoringCallback(ErrorLevel.ErrorLevel_All, CopyMonitoringInConsole);
+		if (!UnityEditor.EditorApplication.isPlaying)
+			return;
 #endif
 
-        //Load the init bank right away.  Errors will be logged automatically.
-        uint BankID;
-        result = AkSoundEngine.LoadBank("Init.bnk", AkSoundEngine.AK_DEFAULT_POOL_ID, out BankID);
-        if (result != AKRESULT.AK_Success)
-        {
-            Debug.LogError("WwiseUnity: Failed load Init.bnk with result: " + result.ToString());
-        }
-
-#if UNITY_EDITOR
-        EditorApplication.playmodeStateChanged += OnEditorPlaymodeStateChanged;
-#endif
-    }
-
-    void OnDestroy()
-    {
-        if (ms_Instance == this)
-        {
-#if UNITY_EDITOR
-            EditorApplication.playmodeStateChanged -= OnEditorPlaymodeStateChanged;
-#endif
-
-            AkCallbackManager.SetMonitoringCallback(0, null);
-            ms_Instance = null;
-        }
-        // Do nothing. AkTerminator handles sound engine termination.
-
-    }
-
-    void OnEnable()
-    {
-        //The sound engine was not terminated normally.  Make this instance the one that will manage
-        //the updates and termination.
-        //This happen when Unity resets everything when a script changes.
-        if (ms_Instance == null && AkSoundEngine.IsInitialized())
-        {
-            ms_Instance = this;
-#if UNITY_EDITOR
-            //Redirect Wwise error messages into Unity console.
-            AkCallbackManager.SetMonitoringCallback(ErrorLevel.ErrorLevel_All, CopyMonitoringInConsole);
-#endif
-        }
-    }
-
-    //Use LateUpdate instead of Update() to ensure all gameobjects positions, listener positions, environements, RTPC, etc are set before finishing the audio frame.
-    void LateUpdate()
-    {
-        //Execute callbacks that occured in last frame (not the current update)     
-        if (ms_Instance != null)
-        {
-            AkCallbackManager.PostCallbacks();
-            AkBankManager.DoUnloadBanks();
-            AkSoundEngine.RenderAudio();
-        }
-    }
-
-#if UNITY_EDITOR
-
-    void OnDisable()
-    {
-        // Unregister the callback that redirects the output to the Unity console.  If not done early enough (meaning, later than Disable), AkInitializer will leak.
-        if (ms_Instance != null && AkSoundEngine.IsInitialized())
-            AkCallbackManager.SetMonitoringCallback(0, null);
-    }
-
-    
-    void CopyMonitoringInConsole(ErrorCode in_errorCode, ErrorLevel in_errorLevel, uint in_playingID, IntPtr in_gameObjID, string in_msg)
-    {
-        // Only log when logging from the engine is enabled. The callback remains active when the flag is disabled to ensure
-        // it can be toggled on and off in a lively manner in Unity.
-        if (engineLogging)
-        {
-            string msg = "Wwise: " + in_msg;
-            if (in_gameObjID != (IntPtr)AkSoundEngine.AK_INVALID_GAME_OBJECT)
-            {
-                GameObject obj = EditorUtility.InstanceIDToObject((int)in_gameObjID) as GameObject;
-                string name = obj != null ? obj.ToString() : in_gameObjID.ToString();
-                msg += "(Object: " + name + ")";
-            }
-
-            if (in_errorLevel == ErrorLevel.ErrorLevel_Error)
-                Debug.LogError(msg);
-            else
-                Debug.Log(msg);
-        }
-    }
-#endif
-
-    //
-    // Private members
-    //
-
-    private static AkInitializer ms_Instance;
-
-#if !UNITY_EDITOR && !UNITY_WIIU && !UNITY_IOS
-    //Keep out of UNITY_EDITOR because the sound needs to keep playing when switching windows (remote debugging in Wwise, for example).
-	//On the WiiU, it seems Unity has a bug and never calls OnApplicationFocus(true).  This leaves us in "suspended mode".  So commented out for now.
-	//On iOS, application interruptions are handled in the sound engine already.
-	void OnApplicationPause(bool pauseStatus) 
-	{
-		if (ms_Instance != null)
-		{
-			if ( !pauseStatus )
-			{
-				AkSoundEngine.WakeupFromSuspend();
-			}
-			else
-			{
-				AkSoundEngine.Suspend();             
-			}
-			AkSoundEngine.RenderAudio();
-		}        
+		DontDestroyOnLoad(this);
 	}
-	
-    void OnApplicationFocus(bool focus)
-    {
-        if (ms_Instance != null)
-        {
-            if ( focus )
-            {
-                AkSoundEngine.WakeupFromSuspend();
-            }
-            else
-            {
-				AkSoundEngine.Suspend();             
-            }
-            AkSoundEngine.RenderAudio();
-        }
-    }
-#endif
 
+	private void OnEnable()
+	{
+		InitializationSettings = AkWwiseInitializationSettings.Instance;
+
+		if (ms_Instance == this)
+			AkSoundEngineController.Instance.Init(this);
+	}
+
+	private void OnDisable()
+	{
+		if (ms_Instance == this)
+			AkSoundEngineController.Instance.OnDisable();
+	}
+
+	private void OnDestroy()
+	{
+		if (ms_Instance == this)
+			ms_Instance = null;
+	}
+
+	private void OnApplicationPause(bool pauseStatus)
+	{
+		if (ms_Instance == this)
+			AkSoundEngineController.Instance.OnApplicationPause(pauseStatus);
+	}
+
+	private void OnApplicationFocus(bool focus)
+	{
+		if (ms_Instance == this)
+			AkSoundEngineController.Instance.OnApplicationFocus(focus);
+	}
+
+	private void OnApplicationQuit()
+	{
+		if (ms_Instance == this)
+			AkSoundEngineController.Instance.Terminate();
+	}
+
+	//Use LateUpdate instead of Update() to ensure all gameobjects positions, listener positions, environements, RTPC, etc are set before finishing the audio frame.
+	private void LateUpdate()
+	{
+		if (ms_Instance == this)
+			AkSoundEngineController.Instance.LateUpdate();
+	}
+
+	#region WwiseMigration
 #if UNITY_EDITOR
-    // Enable/Disable the audio when pressing play/pause in the editor.
-    private static void OnEditorPlaymodeStateChanged()
-    {
-        if (ms_Instance != null)
-        {
-            if (EditorApplication.isPaused)
-            {
-                AkSoundEngine.Suspend();
-            }
-            else
-            {
-                AkSoundEngine.WakeupFromSuspend();
-            }
+#pragma warning disable 0414 // private field assigned but not used.
 
-            AkSoundEngine.RenderAudio();
-        }
-    }
+	// previously serialized data that will be consumed by migration
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private string basePath;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private string language;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int defaultPoolSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int lowerPoolSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int streamingPoolSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int preparePoolSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private float memoryCutoffThreshold;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int monitorPoolSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int monitorQueuePoolSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int callbackManagerBufferSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private int spatialAudioPoolSize;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private uint maxSoundPropagationDepth;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private AkDiffractionFlags diffractionFlags;
+	[UnityEngine.HideInInspector][UnityEngine.SerializeField] private bool engineLogging;
+
+#pragma warning restore 0414 // private field assigned but not used.
+
+	private class Migration15Data
+	{
+		bool hasMigrated = false;
+
+		public void Migrate(AkInitializer akInitializer)
+		{
+			if (hasMigrated)
+				return;
+
+			var initializationSettings = akInitializer.InitializationSettings;
+			if (!initializationSettings)
+			{
+				initializationSettings = AkWwiseInitializationSettings.Instance;
+				if (!initializationSettings)
+					return;
+			}
+
+			initializationSettings.UserSettings.m_BasePath = akInitializer.basePath;
+			initializationSettings.UserSettings.m_StartupLanguage = akInitializer.language;
+			initializationSettings.UserSettings.m_DefaultPoolSize = (uint)akInitializer.defaultPoolSize * 1024;
+			initializationSettings.UserSettings.m_LowerEnginePoolSize = (uint)akInitializer.lowerPoolSize * 1024;
+			initializationSettings.UserSettings.m_StreamManagerPoolSize = (uint)akInitializer.streamingPoolSize * 1024;
+			initializationSettings.UserSettings.m_PreparePoolSize = (uint)akInitializer.preparePoolSize * 1024;
+			initializationSettings.UserSettings.m_LowerEngineMemoryCutoffThreshold = akInitializer.memoryCutoffThreshold;
+
+			initializationSettings.AdvancedSettings.m_MonitorPoolSize = (uint)akInitializer.monitorPoolSize * 1024;
+			initializationSettings.AdvancedSettings.m_MonitorQueuePoolSize = (uint)akInitializer.monitorQueuePoolSize * 1024;
+
+			initializationSettings.CallbackManagerInitializationSettings.BufferSize = akInitializer.callbackManagerBufferSize * 1024;
+
+			initializationSettings.AkSpatialAudioInitSettings.uPoolSize = (uint)akInitializer.spatialAudioPoolSize * 1024;
+			initializationSettings.AkSpatialAudioInitSettings.uMaxSoundPropagationDepth = akInitializer.maxSoundPropagationDepth;
+			initializationSettings.AkSpatialAudioInitSettings.uDiffractionFlags = (uint)akInitializer.diffractionFlags;
+
+			initializationSettings.CallbackManagerInitializationSettings.IsLoggingEnabled = akInitializer.engineLogging;
+
+			UnityEditor.EditorUtility.SetDirty(initializationSettings);
+			UnityEditor.AssetDatabase.SaveAssets();
+
+			UnityEngine.Debug.Log("WwiseUnity: Converted from AkInitializer to AkWwiseInitializationSettings.");
+			hasMigrated = true;
+		}
+	}
+
+	private static Migration15Data migration15data;
+
+	public static void PreMigration15()
+	{
+		migration15data = new Migration15Data();
+	}
+
+	public void Migrate15()
+	{
+		UnityEngine.Debug.Log("WwiseUnity: AkInitializer.Migrate15 for " + gameObject.name);
+
+		if (migration15data != null)
+			migration15data.Migrate(this);
+	}
+
+	public static void PostMigration15()
+	{
+		migration15data = null;
+	}
 #endif
-
+	#endregion
 }
-#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

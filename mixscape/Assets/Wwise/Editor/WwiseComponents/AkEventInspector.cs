@@ -5,252 +5,171 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-using UnityEngine;
-using UnityEditor;
-using System;
-using System.Reflection;
-
-[CanEditMultipleObjects]
-[CustomEditor(typeof(AkEvent))]
+[UnityEditor.CanEditMultipleObjects]
+[UnityEditor.CustomEditor(typeof(AkEvent))]
 public class AkEventInspector : AkBaseInspector
 {
-	AkEvent m_akEvent;
+	private readonly AkUnityEventHandlerInspector m_UnityEventHandlerInspector = new AkUnityEventHandlerInspector();
+	private UnityEditor.SerializedProperty actionOnEventType;
+	private UnityEditor.SerializedProperty callbackData;
+	private UnityEditor.SerializedProperty curveInterpolation;
+	private UnityEditor.SerializedProperty enableActionOnEvent;
 
-	SerializedProperty eventID;
-	SerializedProperty enableActionOnEvent;    
-	SerializedProperty actionOnEventType;
-	SerializedProperty curveInterpolation;
-	SerializedProperty transitionDuration;
-
-	string[]	m_supportedCallbackFlags;
-	int[]		m_supportedCallbackValues;
-
-	AkUnityEventHandlerInspector m_UnityEventHandlerInspector = new AkUnityEventHandlerInspector();
+	private UnityEditor.SerializedProperty eventID;
+	private UnityEditor.SerializedProperty transitionDuration;
 
 	public void OnEnable()
 	{
-		m_akEvent = target as AkEvent;
-		
 		m_UnityEventHandlerInspector.Init(serializedObject);
-		
-		eventID				= serializedObject.FindProperty("eventID");
-		enableActionOnEvent	= serializedObject.FindProperty("enableActionOnEvent");
-		actionOnEventType	= serializedObject.FindProperty("actionOnEventType");
-		curveInterpolation	= serializedObject.FindProperty("curveInterpolation");
-		transitionDuration	= serializedObject.FindProperty("transitionDuration");
-		
-		m_guidProperty		= new SerializedProperty[1];
-		m_guidProperty[0]	= serializedObject.FindProperty("valueGuid.Array");
-		
+
+		eventID = serializedObject.FindProperty("eventID");
+		enableActionOnEvent = serializedObject.FindProperty("enableActionOnEvent");
+		actionOnEventType = serializedObject.FindProperty("actionOnEventType");
+		curveInterpolation = serializedObject.FindProperty("curveInterpolation");
+		transitionDuration = serializedObject.FindProperty("transitionDuration");
+
+		callbackData = serializedObject.FindProperty("m_callbackData");
+
+		m_guidProperty = new UnityEditor.SerializedProperty[1];
+		m_guidProperty[0] = serializedObject.FindProperty("valueGuid.Array");
+
 		//Needed by the base class to know which type of component its working with
-		m_typeName		= "Event";
-		m_objectType	= AkWwiseProjectData.WwiseObjectType.EVENT;
-
-
-		//Build a list of all supported callback type names and values
-		int[] callbacktypes = (int[])Enum.GetValues (typeof(AkCallbackType));
-		int[] unsupportedCallbackValues =
-		{
-			(int)AkCallbackType.AK_SpeakerVolumeMatrix,
-			(int)AkCallbackType.AK_MusicSyncAll,
-			(int)AkCallbackType.AK_CallbackBits,
-			(int)AkCallbackType.AK_EnableGetSourcePlayPosition,
-			(int)AkCallbackType.AK_EnableGetMusicPlayPosition,
-			(int)AkCallbackType.AK_EnableGetSourceStreamBuffering,
-			(int)AkCallbackType.AK_Monitoring,
-			(int)AkCallbackType.AK_AudioSourceChange,
-			(int)AkCallbackType.AK_Bank,
-			(int)AkCallbackType.AK_AudioInterruption
-		};
-
-		m_supportedCallbackFlags 	= new string[callbacktypes.Length - unsupportedCallbackValues.Length];
-		m_supportedCallbackValues 	= new int	[callbacktypes.Length - unsupportedCallbackValues.Length];
-
-		int index = 0;
-		for(int i = 0; i < callbacktypes.Length; i++)
-		{
-			if(!Contain(unsupportedCallbackValues, callbacktypes[i]))
-			{
-				m_supportedCallbackFlags[index] = Enum.GetName(typeof(AkCallbackType), callbacktypes[i]).Substring(3);
-				m_supportedCallbackValues[index] = callbacktypes[i];
-				index++;
-			}
-		}
+		m_typeName = "Event";
+		m_objectType = AkWwiseProjectData.WwiseObjectType.EVENT;
 	}
 
-	bool Contain(int[] in_array, int in_value)
+	public override void OnChildInspectorGUI()
 	{
-		for(int i = 0; i < in_array.Length; i++)
-		{
-			if(in_array[i] == in_value) return true;
-		}
-
-		return false;
-	}
-
-	public override void OnChildInspectorGUI ()
-	{	
-		serializedObject.Update ();
+		serializedObject.Update();
 
 		m_UnityEventHandlerInspector.OnGUI();
-		
-		GUILayout.Space(2);
-		
-		GUILayout.BeginVertical("Box");
+
+		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
+
+		using (new UnityEditor.EditorGUILayout.VerticalScope("box"))
 		{
-			EditorGUILayout.PropertyField(enableActionOnEvent, new GUIContent("Action On Event: "));
-			
-			if(enableActionOnEvent.boolValue)
+			UnityEditor.EditorGUILayout.PropertyField(enableActionOnEvent, new UnityEngine.GUIContent("Action On Event: "));
+
+			if (enableActionOnEvent.boolValue)
 			{
-				EditorGUILayout.PropertyField(actionOnEventType, new GUIContent("Action On EventType: "));
-				EditorGUILayout.PropertyField(curveInterpolation, new GUIContent("Curve Interpolation: "));
-				EditorGUILayout.Slider(transitionDuration, 0.0f, 60.0f, new GUIContent("Fade Time (secs): "));
+				UnityEditor.EditorGUILayout.PropertyField(actionOnEventType, new UnityEngine.GUIContent("Action On EventType: "));
+				UnityEditor.EditorGUILayout.PropertyField(curveInterpolation, new UnityEngine.GUIContent("Curve Interpolation: "));
+				UnityEditor.EditorGUILayout.Slider(transitionDuration, 0.0f, 60.0f,
+					new UnityEngine.GUIContent("Fade Time (secs): "));
 			}
-			
 		}
-		GUILayout.EndVertical();
 
-		GUILayout.Space (2);
+		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
 
-		GUILayout.BeginVertical ("Box");
+		using (new UnityEditor.EditorGUILayout.VerticalScope("box"))
 		{
-			bool useCallback = m_akEvent.m_callbackData != null;
-#if UNITY_5_3_OR_NEWER
-			EditorGUI.BeginChangeCheck();
-#endif
-			useCallback = EditorGUILayout.Toggle ("Use Callback: ", useCallback);
-#if UNITY_5_3_OR_NEWER
-			if (EditorGUI.EndChangeCheck())
-#endif
+			UnityEditor.EditorGUI.BeginChangeCheck();
+			UnityEditor.EditorGUILayout.PropertyField(callbackData);
+			if (UnityEditor.EditorGUI.EndChangeCheck())
+				serializedObject.ApplyModifiedProperties();
+		}
+
+		serializedObject.ApplyModifiedProperties();
+
+		using (new UnityEditor.EditorGUILayout.VerticalScope("box"))
+		{
+			var style = new UnityEngine.GUIStyle(UnityEngine.GUI.skin.button);
+			float inspectorWidth = UnityEngine.Screen.width - UnityEngine.GUI.skin.box.margin.left -
+			                       UnityEngine.GUI.skin.box.margin.right;
+
+			if (targets.Length == 1)
 			{
-#if UNITY_5_3_OR_NEWER
-				Undo.RecordObject(target, "Use Callback Change");
-#endif
-
-				if (m_akEvent.m_callbackData == null && useCallback)
+				var akEvent = (AkEvent) target;
+				var eventPlaying = AkEditorEventPlayer.Instance.IsEventPlaying(akEvent);
+				if (eventPlaying)
 				{
-					m_akEvent.m_callbackData = ScriptableObject.CreateInstance<AkEventCallbackData>();
-
-					m_akEvent.m_callbackData.callbackFunc.Add(string.Empty);
-					m_akEvent.m_callbackData.callbackFlags.Add(0);
-					m_akEvent.m_callbackData.callbackGameObj.Add(null);
-				}
-				else if (!useCallback)
-				{
-					m_akEvent.m_callbackData = null;
-				}
-			}
-
-			if (m_akEvent.m_callbackData != null)
-			{
-				GUILayout.Space(3);
-
-				GUILayout.BeginHorizontal();
-				{
-					GUILayout.Label("Game Object");
-					GUILayout.Label("Callback Function");
-					GUILayout.Label("Callback Flags");
-				}
-				GUILayout.EndHorizontal();
-
-				m_akEvent.m_callbackData.uFlags = 0;
-
-				for (int i = 0; i < m_akEvent.m_callbackData.callbackFunc.Count; i++)
-				{
-					GUILayout.BeginHorizontal();
+					if (UnityEngine.GUILayout.Button("Stop", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
 					{
-#if UNITY_5_3_OR_NEWER
-						EditorGUI.BeginChangeCheck();
-#endif
-						GameObject gameObj = (GameObject)EditorGUILayout.ObjectField(m_akEvent.m_callbackData.callbackGameObj[i], typeof(GameObject), true);
-						string func = EditorGUILayout.TextField(m_akEvent.m_callbackData.callbackFunc[i]);
-
-						//Since some callback flags are unsupported, some bits are not used.
-						//But when using EditorGUILayout.MaskField, clicking the third flag will set the third bit to one even if the third flag in the AkCallbackType enum is unsupported.
-						//This is a problem because cliking the third supported flag would internally select the third flag in the AkCallbackType enum which is unsupported.
-						//To solve this problem we use a mask for display and another one for the actual callback
-						int displayMask = GetDisplayMask(m_akEvent.m_callbackData.callbackFlags[i]);
-						displayMask = EditorGUILayout.MaskField(displayMask, m_supportedCallbackFlags);
-						int flags = GetWwiseCallbackMask(displayMask);
-
-#if UNITY_5_3_OR_NEWER
-						if (EditorGUI.EndChangeCheck())
-#endif
-						{
-#if UNITY_5_3_OR_NEWER
-							Undo.RecordObject(m_akEvent.m_callbackData, "Modified Callback");
-#endif
-							m_akEvent.m_callbackData.callbackGameObj[i] = gameObj;
-							m_akEvent.m_callbackData.callbackFunc[i] = func;
-							m_akEvent.m_callbackData.callbackFlags[i] = flags;
-						}
-
-						if (GUILayout.Button("X"))
-						{
-#if UNITY_5_3_OR_NEWER
-							Undo.RecordObject(m_akEvent.m_callbackData, "Remove Callback");
-#endif
-
-							if (m_akEvent.m_callbackData.callbackFunc.Count == 1)
-							{
-								m_akEvent.m_callbackData.callbackFunc[0] = string.Empty;
-								m_akEvent.m_callbackData.callbackFlags[0] = 0;
-								m_akEvent.m_callbackData.callbackGameObj[0] = null;
-
-								//Changes to the textfield string will not be picked up by the text editor if it is selected.
-								//So we remove focus from the textfield to make sure it will get updated
-								GUIUtility.keyboardControl = 0;
-								GUIUtility.hotControl = 0;
-							}
-							else
-							{
-								m_akEvent.m_callbackData.callbackFunc.RemoveAt(i);
-								m_akEvent.m_callbackData.callbackFlags.RemoveAt(i);
-								m_akEvent.m_callbackData.callbackGameObj.RemoveAt(i);
-
-								GUIUtility.keyboardControl = 0;
-								GUIUtility.hotControl = 0;
-
-								i--;
-								continue;
-							}
-						}
-
-						m_akEvent.m_callbackData.uFlags |= m_akEvent.m_callbackData.callbackFlags[i];
+						UnityEngine.GUIUtility.hotControl = 0;
+						AkEditorEventPlayer.Instance.StopEvent(akEvent);
 					}
-					GUILayout.EndHorizontal();
 				}
-
-				GUILayout.Space(3);
-
-				if (GUILayout.Button("Add"))
+				else
 				{
-#if UNITY_5_3_OR_NEWER
-					Undo.RecordObject(m_akEvent.m_callbackData, "Add Callback");
-#endif
+					if (UnityEngine.GUILayout.Button("Play", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
+					{
+						UnityEngine.GUIUtility.hotControl = 0;
+						AkEditorEventPlayer.Instance.PlayEvent(akEvent);
+					}
+				}
+			}
+			else
+			{
+				var playingEventsSelected = false;
+				var stoppedEventsSelected = false;
+				for (var i = 0; i < targets.Length; ++i)
+				{
+					var akEventTarget = targets[i] as AkEvent;
+					if (akEventTarget != null)
+					{
+						if (AkEditorEventPlayer.Instance.IsEventPlaying(akEventTarget))
+							playingEventsSelected = true;
+						else
+							stoppedEventsSelected = true;
 
-					m_akEvent.m_callbackData.callbackFunc.Add(string.Empty);
-					m_akEvent.m_callbackData.callbackFlags.Add(0);
-					m_akEvent.m_callbackData.callbackGameObj.Add(null);
+						if (playingEventsSelected && stoppedEventsSelected)
+							break;
+					}
 				}
 
-				GUILayout.Space(3);
+				var guiEnabled = UnityEngine.GUI.enabled;
+
+				if (!stoppedEventsSelected)
+					UnityEngine.GUI.enabled = false;
+
+				if (UnityEngine.GUILayout.Button("Play Multiple", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
+				{
+					UnityEngine.GUIUtility.hotControl = 0;
+					for (var i = 0; i < targets.Length; ++i)
+					{
+						var akEventTarget = targets[i] as AkEvent;
+						if (akEventTarget != null)
+							AkEditorEventPlayer.Instance.PlayEvent(akEventTarget);
+					}
+				}
+
+				if (!stoppedEventsSelected)
+					UnityEngine.GUI.enabled = guiEnabled;
+
+				if (!playingEventsSelected)
+					UnityEngine.GUI.enabled = false;
+
+				if (UnityEngine.GUILayout.Button("Stop Multiple", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
+				{
+					UnityEngine.GUIUtility.hotControl = 0;
+					for (var i = 0; i < targets.Length; ++i)
+					{
+						var akEventTarget = targets[i] as AkEvent;
+						if (akEventTarget != null)
+							AkEditorEventPlayer.Instance.StopEvent(akEventTarget);
+					}
+				}
+
+				if (!playingEventsSelected)
+					UnityEngine.GUI.enabled = guiEnabled;
+			}
+
+			if (UnityEngine.GUILayout.Button("Stop All", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
+			{
+				UnityEngine.GUIUtility.hotControl = 0;
+				AkEditorEventPlayer.Instance.StopAll();
 			}
 		}
-		GUILayout.EndVertical();
-
-		serializedObject.ApplyModifiedProperties ();
 	}
 
-	public override string UpdateIds (Guid[] in_guid)
+	public override string UpdateIds(System.Guid[] in_guid)
 	{
-		for(int i = 0; i < AkWwiseProjectInfo.GetData().EventWwu.Count; i++)
+		for (var i = 0; i < AkWwiseProjectInfo.GetData().EventWwu.Count; i++)
 		{
-			AkWwiseProjectData.Event e = AkWwiseProjectInfo.GetData().EventWwu[i].List.Find(x => new Guid(x.Guid).Equals(in_guid[0]));
-			
-			if(e != null)
+			var e = AkWwiseProjectInfo.GetData().EventWwu[i].List.Find(x => new System.Guid(x.Guid).Equals(in_guid[0]));
+
+			if (e != null)
 			{
-				serializedObject.Update();
 				eventID.intValue = e.ID;
 				serializedObject.ApplyModifiedProperties();
 
@@ -261,31 +180,89 @@ public class AkEventInspector : AkBaseInspector
 		return string.Empty;
 	}
 
-	int GetDisplayMask(int in_wwiseCallbackMask)
+	public class AkEditorEventPlayer
 	{
-		int displayMask = 0;
-		for(int i = 0; i < m_supportedCallbackValues.Length; i++)
+		private static AkEditorEventPlayer ms_Instance;
+
+		private readonly System.Collections.Generic.List<AkEvent> akEvents = new System.Collections.Generic.List<AkEvent>();
+
+		public static AkEditorEventPlayer Instance
 		{
-			if((m_supportedCallbackValues[i] & in_wwiseCallbackMask) != 0)
-				displayMask |= (1 << i);
-		}
-
-		return displayMask;
-	}
-
-	int GetWwiseCallbackMask(int in_displayMask)
-	{
-		int wwiseCallbackMask = 0;
-		for(int i = 0; i < m_supportedCallbackValues.Length; i++)
-		{			
-			if((in_displayMask & (1 << i)) != 0)
+			get
 			{
-				wwiseCallbackMask |= m_supportedCallbackValues[i];
+				if (ms_Instance == null)
+					ms_Instance = new AkEditorEventPlayer();
+				return ms_Instance;
 			}
 		}
 
-		return wwiseCallbackMask;
+		private void CallbackHandler(object in_cookie, AkCallbackType in_type, object in_info)
+		{
+			if (in_type == AkCallbackType.AK_EndOfEvent)
+			{
+				var akEvent = in_cookie as AkEvent;
+				UnityEngine.Debug.Log("RemoveAkEvent(): " + akEvent.gameObject.name);
+				RemoveAkEvent(akEvent);
+				AkUtilities.RepaintInspector();
+			}
+		}
+
+		public void PlayEvent(AkEvent akEvent)
+		{
+			if (IsEventPlaying(akEvent))
+				return;
+
+			UnityEngine.Debug.Log("PlayEvent(" + akEvent.eventID + "): " + akEvent.gameObject.name + " " + akEvent.transform.position);
+
+			var playingID = AkSoundEngine.PostEvent((uint) akEvent.eventID, akEvent.gameObject,
+				(uint) AkCallbackType.AK_EndOfEvent, CallbackHandler, akEvent);
+			if (playingID != AkSoundEngine.AK_INVALID_PLAYING_ID)
+				AddAkEvent(akEvent);
+		}
+
+		public void StopEvent(AkEvent akEvent)
+		{
+			if (!IsEventPlaying(akEvent))
+				return;
+
+			UnityEngine.Debug.Log("StopEvent(): " + akEvent.gameObject.name);
+
+			var result = AkSoundEngine.ExecuteActionOnEvent((uint) akEvent.eventID, AkActionOnEventType.AkActionOnEventType_Stop,
+				akEvent.gameObject, 0);
+			if (result == AKRESULT.AK_Success)
+				RemoveAkEvent(akEvent);
+			else
+			{
+				UnityEngine.Debug.LogWarning("WwiseUnity: AkEditorEventPlayer: Failed to stop event: " + akEvent.name + "(id: " +
+				                             akEvent.eventID + ")!");
+			}
+		}
+
+		private void AddAkEvent(AkEvent akEvent)
+		{
+			UnityEngine.Debug.Log("AddAkEvent(): " + akEvent.gameObject.name);
+
+			akEvents.Add(akEvent);
+
+			// In the case where objects are being placed in edit mode and then previewed, their positions won't yet be updated so we ensure they're updated here.
+			AkSoundEngine.SetObjectPosition(akEvent.gameObject, akEvent.transform);
+		}
+
+		private void RemoveAkEvent(AkEvent akEvent)
+		{
+			if (akEvent != null)
+				akEvents.Remove(akEvent);
+		}
+
+		public bool IsEventPlaying(AkEvent akEvent)
+		{
+			return akEvents.Contains(akEvent);
+		}
+
+		public void StopAll()
+		{
+			AkSoundEngine.StopAll();
+		}
 	}
 }
-
 #endif
